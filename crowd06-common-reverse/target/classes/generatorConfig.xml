@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
 		</commentGenerator>
 		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://localhost:3306/project_crowd"
+			connectionURL="jdbc:mysql://localhost:3306/graduation_crowd"
 			userId="root" password="3306">
 		</jdbcConnection>
 		<!-- 默认false，把JDBC DECIMAL 和NUMERIC 类型解析为Integer，为true 时把 JDBC DECIMAL 
