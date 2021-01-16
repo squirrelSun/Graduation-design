@@ -10,11 +10,7 @@
 	<artifactId>crowd02-admin-webui</artifactId>
 	<packaging>war</packaging>
 	<dependencies>
-		<dependency>
-			<groupId>com.sust.swy.crowd</groupId>
-			<artifactId>crowd03-admin-compoment</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+		
 		<!-- junit测试 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -33,7 +29,7 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- 引入Servlet容器中相关依赖 -->
+		<!-- Servlet容器中相关依赖 -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
@@ -45,6 +41,12 @@
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.sust.swy.crowd</groupId>
+			<artifactId>crowd03-admin-compoment</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		
 	</dependencies>

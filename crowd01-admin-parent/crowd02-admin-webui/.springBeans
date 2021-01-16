@@ -8,6 +8,8 @@
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
 		<config>src/main/resources/spring-persist-mybatis.xml</config>
+		<config>src/main/resources/spring-persist-tx.xml</config>
+		<config>src/main/resources/spring-web-mvc.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

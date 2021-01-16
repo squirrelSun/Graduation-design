@@ -93,6 +93,7 @@
 				<artifactId>logback-classic</artifactId>
 				<version>1.2.3</version>
 			</dependency>
+			
 			<!-- 其他日志框架的中间转换包 -->
 			<dependency>
 				<groupId>org.slf4j</groupId>
