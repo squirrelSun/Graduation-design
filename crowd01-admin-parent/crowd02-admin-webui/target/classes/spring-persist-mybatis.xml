@@ -32,6 +32,20 @@
 		<!-- Mapper 配置文件位置 -->
 		<property name="mapperLocations"
 			value="classpath:mybatis/mapper/*Mapper.xml" />
+		<!-- 配置插件 -->
+		<property name="plugins">
+			<array>
+			<!-- 分页插件 -->
+				<bean class="com.github.pagehelper.PageHelper">
+					<property name="properties">
+						<props>
+							<prop key="dialect">mysql</prop>
+							<prop key="reasonable">true</prop>
+						</props>
+					</property>
+				</bean>
+			</array>
+		</property>
 	</bean>
 
 	<!-- 配置 MapperScannerConfigurer -->

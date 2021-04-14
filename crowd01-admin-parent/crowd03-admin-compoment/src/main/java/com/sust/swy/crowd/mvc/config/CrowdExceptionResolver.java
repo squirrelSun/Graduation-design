@@ -26,7 +26,7 @@ public class CrowdExceptionResolver {
 		String viewName = "admin-login";
 		return commonResolve(viewName, exception, request, response);
 	}
-	
+		
 	@ExceptionHandler(value = LoginFailedException.class)
 	public ModelAndView resolveLoginFailedException(LoginFailedException exception, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {

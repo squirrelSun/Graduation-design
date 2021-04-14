@@ -6,6 +6,8 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sust.swy.crowd.constant.CrowdConstant;
 import com.sust.swy.crowd.entity.Admin;
 import com.sust.swy.crowd.entity.AdminExample;
@@ -53,6 +55,13 @@ public class AdminServiceImpl implements AdminService {
 			throw new LoginFailedException(CrowdConstant.MESSAGE_LOGIN_FAILED);
 		}
 		return admin;
+	}
+
+	@Override
+	public PageInfo<Admin> getPageInfo(String keyword, Integer pageNum, Integer pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		List<Admin> list = adminMapper.selectAdminByKeyword(keyword);
+		return new PageInfo<>(list);
 	}
 
 }
