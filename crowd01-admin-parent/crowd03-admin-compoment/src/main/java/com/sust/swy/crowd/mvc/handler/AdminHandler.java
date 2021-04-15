@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,6 +19,36 @@ public class AdminHandler {
 
 	@Autowired
 	private AdminService adminService;
+
+	// 删除
+	@RequestMapping("admin/remove/{adminId}/{pageNum}/{keyword}.html")
+	public String remove(@PathVariable("adminId") Integer adminId, @PathVariable("pageNum") Integer pageNum,
+			@PathVariable("keyword") String keyword) {
+		adminService.removeAdminById(adminId);
+		return "redirect:/admin/get/page.html?pageNum=" + pageNum;
+	}
+
+	// 修改
+	@RequestMapping("/admin/to/edit/page.html")
+	public String toEditPage(@RequestParam("adminId") Integer adminId, ModelMap modelMap) {
+		Admin admin = adminService.getAdminById(adminId);
+		modelMap.addAttribute(CrowdConstant.ATTR_NAME_ADMIN, admin);
+		return "admin-edit";
+	}
+
+	@RequestMapping("/admin/update.html")
+	public String update(Admin admin, @RequestParam("keyword") String keyword,
+			@RequestParam("pageNum") Integer pageNum) {
+		adminService.update(admin);
+		return "redirect:/admin/get/page.html?pageNum=" + pageNum + "&keyword=" + keyword;
+	}
+
+	// 新增
+	@RequestMapping("/admin/save.html")
+	public String save(Admin admin) {
+		adminService.saveAdmin(admin);
+		return "redirect:/admin/get/page.html?pageNum=" + Integer.MAX_VALUE;
+	}
 
 	// 分页查询显示
 	@RequestMapping("/admin/get/page.html")

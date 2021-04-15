@@ -1,9 +1,12 @@
 package com.sust.swy.crowd.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
@@ -12,6 +15,8 @@ import com.sust.swy.crowd.constant.CrowdConstant;
 import com.sust.swy.crowd.entity.Admin;
 import com.sust.swy.crowd.entity.AdminExample;
 import com.sust.swy.crowd.entity.AdminExample.Criteria;
+import com.sust.swy.crowd.exception.LoginAcctAlreadyInUseException;
+import com.sust.swy.crowd.exception.LoginAcctAlreadyInUseForUpdateException;
 import com.sust.swy.crowd.exception.LoginFailedException;
 import com.sust.swy.crowd.mapper.AdminMapper;
 import com.sust.swy.crowd.service.api.AdminService;
@@ -24,13 +29,29 @@ public class AdminServiceImpl implements AdminService {
 	private AdminMapper adminMapper;
 
 	@Override
-	public void saveAdmin(Admin admin) {
-		adminMapper.insert(admin);
+	public List<Admin> getAll() {
+		return adminMapper.selectByExample(new AdminExample());
 	}
 
 	@Override
-	public List<Admin> getAll() {
-		return adminMapper.selectByExample(new AdminExample());
+	public void saveAdmin(Admin admin) {
+		Date data = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String creatTime = dateFormat.format(data);
+		String source = admin.getUserPswd();
+		String encoded = CrowdUtil.md5(source);
+		admin.setUserPswd(encoded);
+		admin.setCreateTime(creatTime);
+		try {
+			adminMapper.insert(admin);
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (e instanceof DuplicateKeyException) {
+				throw new LoginAcctAlreadyInUseException(CrowdConstant.MESSAGE_LOGIN_ACCT_ALREADY_IN_USE);
+			}
+			throw e;
+		}
+
 	}
 
 	@Override
@@ -62,6 +83,30 @@ public class AdminServiceImpl implements AdminService {
 		PageHelper.startPage(pageNum, pageSize);
 		List<Admin> list = adminMapper.selectAdminByKeyword(keyword);
 		return new PageInfo<>(list);
+	}
+
+	@Override
+	public Admin getAdminById(Integer adminId) {
+		adminMapper.selectByPrimaryKey(adminId);
+		return null;
+	}
+
+	@Override
+	public void removeAdminById(Integer adminId) {
+		adminMapper.deleteByPrimaryKey(adminId);
+	}
+
+	@Override
+	public void update(Admin admin) {
+		try {
+			adminMapper.updateByPrimaryKeySelective(admin);
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (e instanceof DuplicateKeyException) {
+				throw new LoginAcctAlreadyInUseForUpdateException(CrowdConstant.MESSAGE_LOGIN_ACCT_ALREADY_IN_USE);
+			}
+			throw e;
+		}
 	}
 
 }

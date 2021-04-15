@@ -18,8 +18,8 @@
 							class="btn btn-default btn-success dropdown-toggle"
 							data-toggle="dropdown">
 							<i class="glyphicon glyphicon-user"></i>
-							<!--<security:authentication
-								property="principal.originalAdmin.userName" />-->
+							<security:authentication
+								property="principal.originalAdmin.userName" />
 							<span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu" role="menu">
