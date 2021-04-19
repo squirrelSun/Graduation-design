@@ -40,7 +40,7 @@
 				},
 				"dataType" : "json",
 				"success" : function(response) {
-					var result = response.result;
+					var result = response.operationResult;
 					if (result == "SUCCESS") {
 						layer.msg("操作成功！");
 						// 重新加载分页数据
@@ -48,7 +48,7 @@
 						generatePage();
 					}
 					if (result == "FAILED") {
-						layer.msg("操作失败！" + response.message);
+						layer.msg("操作失败！" + response.operationMessage);
 					}
 				},
 				"error" : function(response) {
@@ -83,14 +83,14 @@
 				},
 				"dataType" : "json",
 				"success" : function(response) {
-					var result = response.result;
+					var result = response.operationResult;
 					if (result == "SUCCESS") {
 						layer.msg("操作成功！");
 						// 重新加载分页数据
 						generatePage();
 					}
 					if (result == "FAILED") {
-						layer.msg("操作失败！" + response.message);
+						layer.msg("操作失败！" + response.operationMessage);
 					}
 				},
 				"error" : function(response) {
@@ -112,14 +112,14 @@
 				"contentType" : "application/json;charset=UTF-8",
 				"dataType" : "json",
 				"success" : function(response) {
-					var result = response.result;
+					var result = response.operationResult;
 					if (result == "SUCCESS") {
 						layer.msg("操作成功！");
 						// 重新加载分页数据
 						generatePage();
 					}
 					if (result == "FAILED") {
-						layer.msg("操作失败！" + response.message);
+						layer.msg("操作失败！" + response.operationMessage);
 					}
 				},
 				"error" : function(response) {
@@ -213,12 +213,12 @@
 				"contentType":"application/json;charset=UTF-8",
 				"dataType":"json",
 				"success":function(response){
-					var result = response.result;
+					var result = response.operationResult;
 					if(result == "SUCCESS") {
 						layer.msg("操作成功！");
 					}
 					if(result == "FAILED") {
-						layer.msg("操作失败！"+response.message);
+						layer.msg("操作失败！"+response.operationMessage);
 					}
 				},
 				"error":function(response) {
