@@ -58,7 +58,7 @@
 				path="/admin/to/login/page.html" />
 			<mvc:exclude-mapping path="/admin/do/login.html" />
 			<mvc:exclude-mapping
-				path="/secrity/do/logout.html" />
+				path="/admin/do/logout.html" />
 			<bean
 				class="com.sust.swy.crowd.mvc.interceptor.LoginInterceptor"></bean>
 		</mvc:interceptor>

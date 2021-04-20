@@ -31,7 +31,7 @@
 		// 计算pageNum
 		var pageNum = pageIndex + 1;
 		// 跳转页面
-		window.location.href = "admin/get/page.html?pageNum="+pageNum+"&keyword=${param.keyword}";
+		window.location.href = "member/get/page.html?pageNum="+pageNum+"&keyword=${param.keyword}";
 		return false;
 	}
 	
@@ -46,7 +46,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">
-							<i class="glyphicon glyphicon-th"></i> 管理员列表
+							<i class="glyphicon glyphicon-th"></i> 用户列表
 						</h3>
 					</div>
 					<div class="panel-body">
@@ -67,9 +67,7 @@
 							style="float: right; margin-left: 10px;">
 							<i class=" glyphicon glyphicon-remove"></i> 删除
 						</button>
-						<a href="admin/to/add/page.html" class="btn btn-primary"
-							style="float: right;"><i class="glyphicon glyphicon-plus"></i>
-							新增</a><br>
+						<br>
 						<hr style="clear: both;">
 						<div class="table-responsive">
 							<table class="table  table-bordered">
@@ -80,34 +78,56 @@
 										<th>账号</th>
 										<th>名称</th>
 										<th>邮箱地址</th>
+										<th>实名认证</th>
+										<th>用户类型</th>
+										<th>实名</th>
+										<th>身份证号</th>
+										<th>账户主体</th>
 										<th width="100">操作</th>
 									</tr>
 								</thead>
 								<tbody>
 									<c:if test="${empty requestScope.pageInfo.list }">
 										<tr>
-											<td colspan="6" align="center">抱歉！没有查询到您要的数据！</td>
+											<td colspan="12" align="center">抱歉！没有查询到您要的数据！</td>
 										</tr>
 									</c:if>
 									<c:if test="${!empty requestScope.pageInfo.list }">
-										<c:forEach items="${requestScope.pageInfo.list }" var="admin"
+										<c:forEach items="${requestScope.pageInfo.list }" var="member"
 											varStatus="myStatus">
 											<tr>
 												<td>${myStatus.count }</td>
 												<td><input type="checkbox"></td>
-												<td>${admin.loginAcct }</td>
-												<td>${admin.userName }</td>
-												<td>${admin.email }</td>
+												<td>${member.loginacct }</td>
+												<td>${member.username }</td>
+												<td>${member.email }</td>
+												<td>
+													<c:if test="${0 eq member.authstatus }">未实名认证</c:if>
+													<c:if test="${1 eq member.authstatus }">实名认证申请中</c:if>
+													<c:if test="${2 eq member.authstatus }">已实名认证中</c:if>
+												</td>
+												<td>
+													<c:if test="${0 eq member.usertype }">个人</c:if>
+													<c:if test="${1 eq member.usertype }">企业</c:if>
+												</td>
+												<td>${member.realname }</td>
+												<td>${member.cardnum }</td>
+												<td>
+													<c:if test="${0 eq member.accttype }">企业</c:if>
+													<c:if test="${1 eq member.accttype }">个体</c:if>
+													<c:if test="${2 eq member.accttype }">个人</c:if>
+													<c:if test="${3 eq member.accttype }">政府</c:if>
+												</td>
 												<td><a class="btn btn-success btn-xs"> <i
 														class=" glyphicon glyphicon-check"></i>
 												</a> <a
-													href="admin/to/edit/page.html?adminId=${admin.id }
+													href="member/to/edit/page.html?memberId=${member.id }
 														&pageNum=${requestScope.pageInfo.pageNum }
 														&keyword=${param.keyword }"
 													class="btn btn-primary btn-xs"> <i
 														class=" glyphicon glyphicon-pencil"></i>
 												</a> <a
-													href="admin/remove/${admin.id }/${requestScope.pageInfo.pageNum }/${param.keyword }.html"
+													href="member/remove/${member.id }/${requestScope.pageInfo.pageNum }/${param.keyword }.html"
 													class="btn btn-danger btn-xs"> <i
 														class=" glyphicon glyphicon-remove"></i>
 												</a></td>
@@ -117,7 +137,7 @@
 								</tbody>
 								<tfoot>
 									<tr>
-										<td colspan="6" align="center">
+										<td colspan="12" align="center">
 											<div id="Pagination" class="pagination">
 												<!-- 显示分页 -->
 											</div>

@@ -18,15 +18,13 @@
 							class="btn btn-default btn-success dropdown-toggle"
 							data-toggle="dropdown">
 							<i class="glyphicon glyphicon-user"></i>
-							<security:authentication
-								property="principal.originalAdmin.userName" />
-							<span class="caret"></span>
+							${sessionScope.loginAdmin.userName } <span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu" role="menu">
 							<li><a><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
 							<li><a><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
 							<li class="divider"></li>
-							<li><a href="secrity/do/logout.html"><i
+							<li><a href="admin/do/logout.html"><i
 									class="glyphicon glyphicon-off"></i> 退出系统</a></li>
 						</ul>
 					</div>
@@ -36,6 +34,7 @@
 						<span class="glyphicon glyphicon-question-sign"></span> 帮助
 					</button>
 				</li>
+				<li style="margin-left: 10px; padding-top: 8px;"></li>
 			</ul>
 			<form class="navbar-form navbar-right">
 				<input type="text" class="form-control" placeholder="查询">

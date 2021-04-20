@@ -21,7 +21,7 @@ public class AdminHandler {
 	private AdminService adminService;
 
 	// 删除
-	@RequestMapping("admin/remove/{adminId}/{pageNum}/{keyword}.html")
+	@RequestMapping("/admin/remove/{adminId}/{pageNum}/{keyword}.html")
 	public String remove(@PathVariable("adminId") Integer adminId, @PathVariable("pageNum") Integer pageNum,
 			@PathVariable("keyword") String keyword) {
 		adminService.removeAdminById(adminId);
@@ -61,7 +61,7 @@ public class AdminHandler {
 	}
 
 	// 登出
-	@RequestMapping("secrity/do/logout.html")
+	@RequestMapping("/admin/do/logout.html")
 	public String doLogout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/admin/to/login/page.html";

@@ -87,8 +87,8 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public Admin getAdminById(Integer adminId) {
-		adminMapper.selectByPrimaryKey(adminId);
-		return null;
+		Admin admin = adminMapper.selectByPrimaryKey(adminId);
+		return admin;
 	}
 
 	@Override
