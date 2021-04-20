@@ -179,55 +179,6 @@
 			showConfirmModal(roleArray);
 			${"summaryBox"}.checked = false;
 		});
-		// 分配权限按钮绑定单击响应函数
-		$("#rolePageBody").on("click",".checkBtn",function(){
-			window.roleId = this.id;
-			// 打开模态框
-			$("#assignModal").modal("show");
-			// 模态框中装载Auth的树形结构数据
-			fillAuthTree();
-		});
-		// 分配按钮绑定单击响应函数
-		$("#assignBtn").click(function(){
-			// 收集树形结构的各个节点中被勾选的节点
-			var authIdArray = [];
-			var zTreeObj = $.fn.zTree.getZTreeObj("authTreeDemo");
-			var checkedNodes = zTreeObj.getCheckedNodes();
-			// 遍历checkedNodes
-			for(var i = 0; i < checkedNodes.length; i++) {
-				var checkedNode = checkedNodes[i];
-				var authId = checkedNode.id;
-				authIdArray.push(authId);
-			}
-			// 执行分配
-			var requestBody = {
-				"authIdArray":authIdArray,
-				"roleId":[window.roleId]
-			};
-			requestBody = JSON.stringify(requestBody);
-			// 发送Ajax请求
-			$.ajax({
-				"url":"assign/do/role/assign/auth.json",
-				"type":"post",
-				"data":requestBody,
-				"contentType":"application/json;charset=UTF-8",
-				"dataType":"json",
-				"success":function(response){
-					var result = response.operationResult;
-					if(result == "SUCCESS") {
-						layer.msg("操作成功！");
-					}
-					if(result == "FAILED") {
-						layer.msg("操作失败！"+response.operationMessage);
-					}
-				},
-				"error":function(response) {
-					layer.msg(response.status+" "+response.statusText);
-				}
-			});
-			// 关闭模态框
-			$("#assignModal").modal("hide");
-		});
 	});
 </script>
 <body>
@@ -296,6 +247,5 @@
 	<%@ include file="/WEB-INF/modal-role-add.jsp"%>
 	<%@include file="/WEB-INF/modal-role-edit.jsp"%>
 	<%@include file="/WEB-INF/modal-role-confirm.jsp"%>
-	<%@include file="/WEB-INF/modal-role-assign-auth.jsp"%>
 </body>
 </html>

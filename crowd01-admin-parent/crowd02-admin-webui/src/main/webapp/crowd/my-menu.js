@@ -1,12 +1,13 @@
 // 生成树形结构函数
 function generateTree() {
+	console.log("b")
 	// ajax请求得到数据
 	$.ajax({
 		"url" : "menu/get/whole/tree.json",
 		"type" : "post",
 		"dataType" : "json",
 		"success" : function(response) {
-			var result = response.result;
+			var result = response.operationResult;
 			if (result == "SUCCESS") {
 				// 创建 JSON 存储 zTree 设置
 				var setting = {
@@ -23,12 +24,12 @@ function generateTree() {
 					}
 				};
 				// 获取 JSON 数据
-				var zNodes = response.data;
+				var zNodes = response.queryData;
 				// 初始化树形结构
 				$.fn.zTree.init($("#treeDemo"), setting, zNodes);
 			}
 			if (result == "FAILED") {
-				layer.msg(response.message);
+				layer.msg(response.operationMessage);
 			}
 		}
 	});

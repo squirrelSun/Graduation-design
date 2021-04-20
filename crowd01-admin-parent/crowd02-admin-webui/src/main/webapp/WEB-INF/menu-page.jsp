@@ -9,8 +9,10 @@
 <script type="text/javascript" src="crowd/my-menu.js"></script>
 <script type="text/javascript">
 	$(function() {
+		console.log("c")
 		// 初始化树结构
 		generateTree();
+		console.log("a")
 		// 添加子节点按钮绑定单击响应函数
 		$("#treeDemo").on("click",".addBtn",function(){
 			// 将当前节点的id保存到全局变量
@@ -39,14 +41,14 @@
 				},
 				"dataType":"json",
 				"success":function(response){
-					var result = response.result;
+					var result = response.operationResult;
 					if(result == "SUCCESS") {
 						layer.msg("操作成功！");
 						// 重新加载树形结构
 						generateTree();
 					}
 					if(result == "FAILED") {
-						layer.msg("操作失败！"+response.message);
+						layer.msg("操作失败！"+response.operationMessage);
 					}
 				},
 				"error":function(response){
@@ -95,13 +97,13 @@
 				},
 				"dataType":"json",
 				"success":function(response){
-					var result = response.result;
+					var result = response.operationResult;
 					if(result == "SUCCESS") {
 						layer.msg("操作成功！");
 						generateTree();
 					}
 					if(result == "FAILED") {
-						layer.msg("操作失败！"+response.message);
+						layer.msg("操作失败！"+response.operationMessage);
 					}
 				},
 				"error":function(response){
@@ -137,13 +139,13 @@
 				},
 				"dataType":"json",
 				"success":function(response){
-					var result = response.result;
+					var result = response.operationResult;
 					if(result == "SUCCESS") {
 						layer.msg("操作成功！");
 						generateTree();
 					}
 					if(result == "FAILED") {
-						layer.msg("操作失败！"+response.message);
+						layer.msg("操作失败！"+response.operationMessage);
 					}
 				},
 				"error":function(response){

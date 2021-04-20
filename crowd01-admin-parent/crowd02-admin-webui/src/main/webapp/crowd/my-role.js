@@ -121,9 +121,9 @@ function fillTableBody(pageInfo) {
 		var checkboxTd = "<td><input id='" + roleId
 				+ "' class='itemBox' type='checkbox'></td>";
 		var roleNameTd = "<td>" + roleName + "</td>";
-		var checkBtn = "<button id='"
+		var checkBtn = "<a id='"
 				+ roleId
-				+ "' type='button' class='btn btn-success btn-xs checkBtn'><i class=' glyphicon glyphicon-check'></i></button>";
+				+ "' type='button' class='btn btn-success btn-xs checkBtn'><i class=' glyphicon glyphicon-check'></i></a>";
 		var pencilBtn = "<button id='"
 				+ roleId
 				+ "' type='button' class='btn btn-primary btn-xs pencilBtn'><i class=' glyphicon glyphicon-pencil'></i></button>";
