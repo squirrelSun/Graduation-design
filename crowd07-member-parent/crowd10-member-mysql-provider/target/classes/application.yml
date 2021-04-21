@@ -1,0 +1,22 @@
+server: 
+  port: 2000 
+spring: 
+  application: 
+    name: sust-swy-crowd-mysql
+  datasource:    name: mydb
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://127.0.0.1:3306/graduation_crowd?serverTimezone=UTC 
+    username: root
+    password: 3306
+    driver-class-name: com.mysql.cj.jdbc.Driver
+eureka: 
+  instance: 
+    hostname: localhost 
+  client: 
+    service-url: 
+      defaultZone: http://${eureka.instance.hostname}:1000/eureka
+mybatis:  mapper-locations: classpath*:/mybatis/mapper/*Mapper.xml
+logging: 
+  level:
+    com.sust.swy.crowd.mapper: debug
+    com.sust.swy.crowd.test: debug
