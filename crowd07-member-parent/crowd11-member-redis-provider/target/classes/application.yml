@@ -1,0 +1,14 @@
+server: 
+  port: 3000 
+spring: 
+  application: 
+    name: sust-swy-crowd-redis
+  redis:
+    host: 192.168.40.128
+    port: 6379
+eureka: 
+  instance: 
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:1000/eureka

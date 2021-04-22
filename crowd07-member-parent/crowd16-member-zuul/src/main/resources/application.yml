@@ -1,0 +1,16 @@
+server: 
+  port: 80
+spring: 
+  application: 
+    name: sust-swy-crowd-zuul
+eureka: 
+  instance: 
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:1000/eureka
+zuul:  ignored-services: "*"
+  sensitive-headers: "*"
+  routes:    crowd-portal:
+      service-id: sust-swy-crowd-auth
+      path: /**

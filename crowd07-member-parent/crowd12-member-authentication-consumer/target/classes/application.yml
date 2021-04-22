@@ -1,0 +1,13 @@
+server: 
+  port: 4000 
+spring: 
+  application: 
+    name: sust-swy-crowd-auth
+  thymeleaf:    prefix: classpath:/templates/
+    suffix: .html
+eureka: 
+  instance: 
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:1000/eureka
