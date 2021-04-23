@@ -1,6 +1,7 @@
 package com.sust.swy.crowd.api;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -12,5 +13,8 @@ public interface MySQLRemoteService {
 
 	@RequestMapping("/get/memberpo/by/login/acct/remote")
 	ResultEntity<MemberPO> getMemberPOByLoginAcctRemote(@RequestParam("loginacct") String loginacct);
+
+	@RequestMapping("/save/memeber/remote")
+	public ResultEntity<String> saveMeneber(@RequestBody MemberPO memberPO);
 
 }

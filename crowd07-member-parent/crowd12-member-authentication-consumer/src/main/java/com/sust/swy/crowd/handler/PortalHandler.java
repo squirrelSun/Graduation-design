@@ -12,4 +12,6 @@ public class PortalHandler {
 		return "portal";
 	}
 
+	
+	
 }

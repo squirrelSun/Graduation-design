@@ -3,6 +3,13 @@ server:
 spring: 
   application: 
     name: sust-swy-crowd-zuul
+  redis:
+    host: 192.168.40.128
+    jedis:
+      pool:
+        max-idle: 100
+  session:
+    store-type: redis
 eureka: 
   instance: 
     hostname: localhost

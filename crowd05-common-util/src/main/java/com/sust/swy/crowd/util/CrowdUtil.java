@@ -2,20 +2,16 @@ package com.sust.swy.crowd.util;
 
 import java.io.InputStream;
 import java.math.BigInteger;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-
-import com.aliyun.api.gateway.demo.util.HttpUtils;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.common.comm.ResponseMessage;
@@ -85,19 +81,13 @@ public class CrowdUtil {
 	 * 
 	 * @param host：接口的url地址
 	 * @param path：发送功能的地址
-	 * @param method：请求方式
 	 * @param phoneNum：手机号
 	 * @param appCode：第三方密钥
 	 * @param sign：签名编号
 	 * @param skin：模板编号
-	 * @return 是否成功，及失败信息 状态码: 200 正常；400 URL无效；401 appCode错误； 403 次数用完； 500 API网管错误
 	 */
 	public static ResultEntity<String> sendCodeByShortMessage(String host, String path, String method, String phoneNum,
 			String appcode, String sign, String skin) {
-		Map<String, String> headers = new HashMap<String, String>();
-		// 最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
-		headers.put("Authorization", "APPCODE " + appcode);
-		Map<String, String> querys = new HashMap<String, String>();
 		// 生成验证码
 		StringBuilder builder = new StringBuilder();
 		for (int i = 0; i < 4; i++) {
@@ -105,22 +95,16 @@ public class CrowdUtil {
 			builder.append(random);
 		}
 		String code = builder.toString();
-		querys.put("param", code);
-		// 发送的手机
-		querys.put("phone", phoneNum);
-		// 签名编号
-		querys.put("sign", sign);
-		// 模板编号
-		querys.put("skin", skin);
+		String urlSend = host + path + "?code=" + code + "&phone=" + phoneNum + "&sign=" + sign + "&skin=" + skin;
 		try {
-			HttpResponse response = HttpUtils.doGet(host, path, method, headers, querys);
-			StatusLine statusLine = response.getStatusLine();
-			int statusCode = statusLine.getStatusCode();
-			String reasonPhrase = statusLine.getReasonPhrase();
-			if (statusCode == 200) {
+			URL url = new URL(urlSend);
+			HttpURLConnection httpURLCon = (HttpURLConnection) url.openConnection();
+			httpURLCon.setRequestProperty("Authorization", "APPCODE " + appcode);
+			int httpCode = httpURLCon.getResponseCode();
+			if (httpCode == 200) {
 				return ResultEntity.successWithData(code);
 			}
-			return ResultEntity.failed(reasonPhrase);
+			return ResultEntity.failed(httpURLCon.getHeaderFields().get("X-Ca-Error-Message").get(0));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResultEntity.failed(e.getMessage());

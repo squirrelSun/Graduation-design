@@ -5,9 +5,23 @@ spring:
     name: sust-swy-crowd-auth
   thymeleaf:    prefix: classpath:/templates/
     suffix: .html
+  redis:    host: 192.168.40.128
+    jedis:      pool:        max-idle: 100
+  session:    store-type: redis
 eureka: 
   instance: 
     hostname: localhost
   client:
     service-url:
       defaultZone: http://${eureka.instance.hostname}:1000/eureka
+short:
+  message:
+    host: http://smsmsgs.market.alicloudapi.com
+    method: GET
+    appcode: 36f3badd9b334cf5af6f62a327c89a98
+    path: /smsmsgs
+    sign: 151003
+    skin: 8
+ribbon:
+  ReadTimeout: 3000
+  ConnectTimeout: 3000

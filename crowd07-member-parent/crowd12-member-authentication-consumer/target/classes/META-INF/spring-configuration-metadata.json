@@ -1,0 +1,52 @@
+{
+  "groups": [
+    {
+      "name": "short.message",
+      "type": "com.sust.swy.crowd.config.ShortMessageProperties",
+      "sourceType": "com.sust.swy.crowd.config.ShortMessageProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "ribbon.ConnectTimeout",
+      "type": "java.lang.String",
+      "description": "A description for 'ribbon.ConnectTimeout'"
+    },
+    {
+      "name": "ribbon.ReadTimeout",
+      "type": "java.lang.String",
+      "description": "A description for 'ribbon.ReadTimeout'"
+    },
+    {
+      "name": "short.message.appcode",
+      "type": "java.lang.String",
+      "sourceType": "com.sust.swy.crowd.config.ShortMessageProperties"
+    },
+    {
+      "name": "short.message.host",
+      "type": "java.lang.String",
+      "sourceType": "com.sust.swy.crowd.config.ShortMessageProperties"
+    },
+    {
+      "name": "short.message.method",
+      "type": "java.lang.String",
+      "sourceType": "com.sust.swy.crowd.config.ShortMessageProperties"
+    },
+    {
+      "name": "short.message.path",
+      "type": "java.lang.String",
+      "sourceType": "com.sust.swy.crowd.config.ShortMessageProperties"
+    },
+    {
+      "name": "short.message.sign",
+      "type": "java.lang.String",
+      "sourceType": "com.sust.swy.crowd.config.ShortMessageProperties"
+    },
+    {
+      "name": "short.message.skin",
+      "type": "java.lang.String",
+      "sourceType": "com.sust.swy.crowd.config.ShortMessageProperties"
+    }
+  ],
+  "hints": []
+}
