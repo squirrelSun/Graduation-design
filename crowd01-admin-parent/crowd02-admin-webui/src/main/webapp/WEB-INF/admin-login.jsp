@@ -26,7 +26,7 @@
 		<div class="container">
 			<div class="navbar-header">
 				<div>
-					<a class="navbar-brand" href="" style="font-size: 32px;">创意产品众筹平台</a>
+					<a class="navbar-brand" href="http://localhost:80/" style="font-size: 32px;">创意产品众筹平台</a>
 				</div>
 			</div>
 		</div>

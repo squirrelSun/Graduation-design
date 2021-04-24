@@ -3,6 +3,8 @@ package com.sust.swy.crowd.handler;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,6 +21,7 @@ import com.sust.swy.crowd.constant.CrowdConstant;
 import com.sust.swy.crowd.entity.po.MemberPO;
 import com.sust.swy.crowd.util.CrowdUtil;
 import com.sust.swy.crowd.util.ResultEntity;
+import com.sust.swy.entity.crowd.vo.MemberLoginVO;
 import com.sust.swy.entity.crowd.vo.MemberVO;
 
 @Controller
@@ -33,6 +36,38 @@ public class MemberHandler {
 	@Autowired
 	MySQLRemoteService mySQLRemoteService;
 
+	@RequestMapping("/auth/member/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:http://localhost/";
+	}
+
+	@RequestMapping("/auth/member/do/login")
+	public String login(@RequestParam("loginacct") String loginacct, @RequestParam("userpswd") String userpswd,
+			ModelMap modelMap, HttpSession session) {
+		ResultEntity<MemberPO> resultEntity = mySQLRemoteService.getMemberPOByLoginAcctRemote(loginacct);
+		if (ResultEntity.FAILED.equals(resultEntity.getOperationResult())) {
+			modelMap.put(CrowdConstant.ATTR_NAME_MESSAGE, resultEntity.getOperationMessage());
+			return "member-login";
+		}
+		MemberPO memberPO = resultEntity.getQueryData();
+		if (memberPO == null) {
+			modelMap.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE, CrowdConstant.MESSAGE_LOGIN_FAILED);
+			return "member-login";
+		}
+		String userpswdDataBase = memberPO.getUserpswd();
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		boolean matcheResult = passwordEncoder.matches(userpswd, userpswdDataBase);
+		if (!matcheResult) {
+			modelMap.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE, CrowdConstant.MESSAGE_LOGIN_FAILED);
+			return "member-login";
+		}
+		MemberLoginVO memberLoginVO = new MemberLoginVO(memberPO.getId(), memberPO.getUsername(), memberPO.getEmail(),
+				memberPO.getAuthstatus());
+		session.setAttribute(CrowdConstant.ATTR_NAME_LOGIN_MEMBER, memberLoginVO);
+		return "redirect:http://localhost/auth/member/to/center/page";
+	}
+
 	@RequestMapping("/auth/do/member/register")
 	public String register(MemberVO memberVO, ModelMap modelMap) {
 		String phoneNum = memberVO.getPhoneNum();
@@ -45,15 +80,15 @@ public class MemberHandler {
 			return "member-reg";
 		}
 		String redisCode = resultEntity.getQueryData();
-		if (redisCode == null && !"787899".equals(formCode)) {
+		if (redisCode == null && !CrowdConstant.TOKEN_CODE.equals(formCode)) {
 			modelMap.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE, CrowdConstant.MESSAGE_CODE_NOT_EXISTS);
 			return "member-reg";
 		}
-		if (!Objects.equals(formCode, redisCode) && !"787899".equals(formCode)) {
+		if (!Objects.equals(formCode, redisCode) && !CrowdConstant.TOKEN_CODE.equals(formCode)) {
 			modelMap.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE, CrowdConstant.MESSAGE_CODE_INVALID);
 			return "member-reg";
 		}
-		if (!"787899".equals(formCode)) {
+		if (!CrowdConstant.TOKEN_CODE.equals(formCode)) {
 			redisRemoteService.removeRedisKeyRemote(key);
 		}
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();

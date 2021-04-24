@@ -28,5 +28,6 @@ public class CrowdConstant {
 	public static final String ATTR_NAME_MEMBER = "member";
 
 	public static final String REDIS_CODE_PREFIX = "REDIS_CODE_PREFIX_";
+	public static final String TOKEN_CODE = "787899";
 
 }
