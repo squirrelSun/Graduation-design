@@ -21,3 +21,8 @@ zuul:  ignored-services: "*"
   routes:    crowd-portal:
       service-id: sust-swy-crowd-auth
       path: /**
+    crowd-project:
+      service-id: sust-swy-crowd-project
+      path: /project/**
+      
+      

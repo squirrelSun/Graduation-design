@@ -19,10 +19,10 @@ import com.sust.swy.crowd.api.RedisRemoteService;
 import com.sust.swy.crowd.config.ShortMessageProperties;
 import com.sust.swy.crowd.constant.CrowdConstant;
 import com.sust.swy.crowd.entity.po.MemberPO;
+import com.sust.swy.crowd.entity.vo.MemberLoginVO;
+import com.sust.swy.crowd.entity.vo.MemberVO;
 import com.sust.swy.crowd.util.CrowdUtil;
 import com.sust.swy.crowd.util.ResultEntity;
-import com.sust.swy.entity.crowd.vo.MemberLoginVO;
-import com.sust.swy.entity.crowd.vo.MemberVO;
 
 @Controller
 public class MemberHandler {

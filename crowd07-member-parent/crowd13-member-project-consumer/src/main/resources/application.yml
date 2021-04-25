@@ -1,0 +1,23 @@
+server:
+  port: 5000
+spring:
+  application:
+    name: sust-swy-crowd-project
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+  redis:
+    host: 192.168.40.128
+  session:
+    store-type: redis
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1000/eureka
+aliyun:
+  oss:
+    access-key-id: LTAI4GFx3MenhcScp112pWzs
+    access-key-secret: 34Ib1lgJkYTZl6ZjFtOvba2YKbOI09
+    bucket-domain: http://sunwwyy.oss-cn-huhehaote.aliyuncs.com
+    bucket-name: sunwwyy
+    end-point: http://oss-cn-huhehaote.aliyuncs.com

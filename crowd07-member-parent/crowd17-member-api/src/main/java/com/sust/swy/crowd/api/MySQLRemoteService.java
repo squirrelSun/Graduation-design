@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sust.swy.crowd.entity.po.MemberPO;
 import com.sust.swy.crowd.util.ResultEntity;
+import com.sust.swy.crowd.entity.vo.ProjectVO;
 
 @FeignClient("sust-swy-crowd-mysql")
 public interface MySQLRemoteService {
@@ -16,5 +17,9 @@ public interface MySQLRemoteService {
 
 	@RequestMapping("/save/memeber/remote")
 	public ResultEntity<String> saveMeneber(@RequestBody MemberPO memberPO);
+
+	@RequestMapping("/save/project/vo/remote")
+	ResultEntity<String> saveProjectVORemote(@RequestBody ProjectVO projectVO,
+			@RequestParam("memberId") Integer memberId);
 
 }
