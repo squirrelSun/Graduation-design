@@ -6,27 +6,29 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface ProjectItemPicPOMapper {
-    int countByExample(ProjectItemPicPOExample example);
+	int countByExample(ProjectItemPicPOExample example);
 
-    int deleteByExample(ProjectItemPicPOExample example);
+	int deleteByExample(ProjectItemPicPOExample example);
 
-    int deleteByPrimaryKey(Integer id);
+	int deleteByPrimaryKey(Integer id);
 
-    int insert(ProjectItemPicPO record);
+	int insert(ProjectItemPicPO record);
 
-    int insertSelective(ProjectItemPicPO record);
+	int insertSelective(ProjectItemPicPO record);
 
-    List<ProjectItemPicPO> selectByExample(ProjectItemPicPOExample example);
+	List<ProjectItemPicPO> selectByExample(ProjectItemPicPOExample example);
 
-    ProjectItemPicPO selectByPrimaryKey(Integer id);
+	ProjectItemPicPO selectByPrimaryKey(Integer id);
 
-    int updateByExampleSelective(@Param("record") ProjectItemPicPO record, @Param("example") ProjectItemPicPOExample example);
+	int updateByExampleSelective(@Param("record") ProjectItemPicPO record,
+			@Param("example") ProjectItemPicPOExample example);
 
-    int updateByExample(@Param("record") ProjectItemPicPO record, @Param("example") ProjectItemPicPOExample example);
+	int updateByExample(@Param("record") ProjectItemPicPO record, @Param("example") ProjectItemPicPOExample example);
 
-    int updateByPrimaryKeySelective(ProjectItemPicPO record);
+	int updateByPrimaryKeySelective(ProjectItemPicPO record);
 
-    int updateByPrimaryKey(ProjectItemPicPO record);
+	int updateByPrimaryKey(ProjectItemPicPO record);
 
-	void insertPathList(Integer projectId, List<String> detailPicturePathList);
+	void insertPathList(@Param("projectId") Integer projectId,
+			@Param("detailPicturePathList") List<String> detailPicturePathList);
 }

@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sust.swy.crowd.entity.po.MemberPO;
-import com.sust.swy.crowd.util.ResultEntity;
 import com.sust.swy.crowd.entity.vo.ProjectVO;
+import com.sust.swy.crowd.util.ResultEntity;
 
 @FeignClient("sust-swy-crowd-mysql")
 public interface MySQLRemoteService {
