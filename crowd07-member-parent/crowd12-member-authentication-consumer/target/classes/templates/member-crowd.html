@@ -112,7 +112,7 @@
 				</div>
 				<div class="list-group">
 					<div class="list-group-item" style="cursor: pointer;"
-						onclick="window.location.href='member.html'">
+						onclick="window.location.href='http://localhost/auth/member/to/center/page'">
 						资产总览<span class="badge"><i
 							class="glyphicon glyphicon-chevron-right"></i></span>
 					</div>
@@ -123,20 +123,15 @@
 				</div>
 			</div>
 			<div class="col-sm-9 col-md-9 column">
-				<ul id="myTab" style="" class="nav nav-pills" role="tablist">
-					<li role="presentation" class="active"><a href="#home"
-						role="tab" data-toggle="tab" aria-controls="home"
-						aria-expanded="true">我的众筹</a></li>
-					<li role="presentation"><a href="#profile" th:href="@{/auth/member/to/center/page}">众筹资产</a></li>
-				</ul>
 				<div id="myTabContent" class="tab-content" style="margin-top: 10px;">
 					<div role="tabpanel" class="tab-pane fade active in" id="home"
 						aria-labelledby="home-tab">
 
 						<ul id="myTab1" class="nav nav-tabs">
-							<li role="presentation" class="active"><a href="#support">我支持的</a></li>
-							<li role="presentation"><a href="#attension">我关注的</a></li>
-							<li role="presentation"><a href="#add">我发起的</a></li>
+							<li role="presentation" class="active"><a
+								th:href="@{/member/my/crowd}">我支持的</a></li>
+							<li role="presentation"><a
+								th:href="@{/member/my/crowd/create}">我发起的</a></li>
 							<li class=" pull-right"><script type="text/javascript">
 								$(function() {
 									$("#launchCrowdBtn")

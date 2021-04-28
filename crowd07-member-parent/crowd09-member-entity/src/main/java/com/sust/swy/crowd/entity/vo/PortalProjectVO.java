@@ -16,6 +16,8 @@ public class PortalProjectVO {
 	private String headerPicturePath;
 
 	private Integer money;
+	
+	private Integer follower;
 
 	private String deployDate;
 

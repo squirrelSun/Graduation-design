@@ -1,5 +1,6 @@
 package com.sust.swy.crowd.handler;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -9,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +23,7 @@ import com.sust.swy.crowd.constant.CrowdConstant;
 import com.sust.swy.crowd.entity.po.MemberPO;
 import com.sust.swy.crowd.entity.vo.MemberLoginVO;
 import com.sust.swy.crowd.entity.vo.MemberVO;
+import com.sust.swy.crowd.entity.vo.PortalProjectVO;
 import com.sust.swy.crowd.util.CrowdUtil;
 import com.sust.swy.crowd.util.ResultEntity;
 
@@ -35,6 +38,21 @@ public class MemberHandler {
 
 	@Autowired
 	MySQLRemoteService mySQLRemoteService;
+
+	@RequestMapping("/member/my/crowd/create")
+	public String myCreate(Model model, HttpSession session) {
+		MemberLoginVO memberLoginVO = (MemberLoginVO) session.getAttribute(CrowdConstant.ATTR_NAME_LOGIN_MEMBER);
+		Integer memberId = memberLoginVO.getId();
+		ResultEntity<List<PortalProjectVO>> resultEntity = mySQLRemoteService.getProjectByMemberId(memberId);
+		// 查询是否成功
+		String result = resultEntity.getOperationResult();
+		if (ResultEntity.SUCCESS.equals(result)) {
+			// 获取查询结果数据
+			List<PortalProjectVO> list = resultEntity.getQueryData();
+			model.addAttribute(CrowdConstant.ATTR_NAME_PORTAL_MEMBER_DATA, list);
+		}
+		return "member-create";
+	}
 
 	@RequestMapping("/auth/member/logout")
 	public String logout(HttpSession session) {

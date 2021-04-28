@@ -3,28 +3,33 @@ package com.sust.swy.crowd.mapper;
 import com.sust.swy.crowd.entity.po.MemberLaunchInfoPO;
 import com.sust.swy.crowd.entity.po.MemberLaunchInfoPOExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface MemberLaunchInfoPOMapper {
-    int countByExample(MemberLaunchInfoPOExample example);
+	int countByExample(MemberLaunchInfoPOExample example);
 
-    int deleteByExample(MemberLaunchInfoPOExample example);
+	int deleteByExample(MemberLaunchInfoPOExample example);
 
-    int deleteByPrimaryKey(Integer id);
+	int deleteByPrimaryKey(Integer id);
 
-    int insert(MemberLaunchInfoPO record);
+	int insert(MemberLaunchInfoPO record);
 
-    int insertSelective(MemberLaunchInfoPO record);
+	int insertSelective(MemberLaunchInfoPO record);
 
-    List<MemberLaunchInfoPO> selectByExample(MemberLaunchInfoPOExample example);
+	List<MemberLaunchInfoPO> selectByExample(MemberLaunchInfoPOExample example);
 
-    MemberLaunchInfoPO selectByPrimaryKey(Integer id);
+	MemberLaunchInfoPO selectByPrimaryKey(Integer id);
 
-    int updateByExampleSelective(@Param("record") MemberLaunchInfoPO record, @Param("example") MemberLaunchInfoPOExample example);
+	int updateByExampleSelective(@Param("record") MemberLaunchInfoPO record,
+			@Param("example") MemberLaunchInfoPOExample example);
 
-    int updateByExample(@Param("record") MemberLaunchInfoPO record, @Param("example") MemberLaunchInfoPOExample example);
+	int updateByExample(@Param("record") MemberLaunchInfoPO record,
+			@Param("example") MemberLaunchInfoPOExample example);
 
-    int updateByPrimaryKeySelective(MemberLaunchInfoPO record);
+	int updateByPrimaryKeySelective(MemberLaunchInfoPO record);
 
-    int updateByPrimaryKey(MemberLaunchInfoPO record);
+	int updateByPrimaryKey(MemberLaunchInfoPO record);
 }

@@ -1,11 +1,14 @@
 package com.sust.swy.crowd.mapper;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.sust.swy.crowd.entity.po.MemberPO;
 import com.sust.swy.crowd.entity.po.MemberPOExample;
 
+@Mapper
 public interface MemberPOMapper {
 	int countByExample(MemberPOExample example);
 

@@ -8,7 +8,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sust.swy.crowd.api.MySQLRemoteService;
 import com.sust.swy.crowd.config.OSSProperties;
 import com.sust.swy.crowd.constant.CrowdConstant;
+import com.sust.swy.crowd.entity.vo.DetailProjectVO;
 import com.sust.swy.crowd.entity.vo.MemberConfirmInfoVO;
 import com.sust.swy.crowd.entity.vo.MemberLoginVO;
 import com.sust.swy.crowd.entity.vo.ProjectVO;
@@ -31,6 +34,16 @@ public class ProjectConsumerHandler {
 
 	@Autowired
 	private MySQLRemoteService mySQLRemoteService;
+
+	@RequestMapping("/get/project/detail/{projectId}")
+	public String getProjectDetail(@PathVariable("projectId") Integer projectId, Model model) {
+		ResultEntity<DetailProjectVO> resultEntity = mySQLRemoteService.getDetailProjectVORemote(projectId);
+		if (ResultEntity.SUCCESS.equals(resultEntity.getOperationResult())) {
+			DetailProjectVO detailProjectVO = resultEntity.getQueryData();
+			model.addAttribute("detailProjectVO", detailProjectVO);
+		}
+		return "project-show-detail";
+	}
 
 	@RequestMapping("/create/confirm")
 	public String saveConfirm(ModelMap modelMap, HttpSession session, MemberConfirmInfoVO memberConfirmInfoVO) {

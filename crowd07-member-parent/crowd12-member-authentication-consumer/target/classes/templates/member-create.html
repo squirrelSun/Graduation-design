@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<base th:href="@{/}" />
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/theme.css">
+<style>
+#footer {
+	padding: 15px 0;
+	background: #fff;
+	border-top: 1px solid #ddd;
+	text-align: center;
+}
+
+#topcontrol {
+	color: #fff;
+	z-index: 99;
+	width: 30px;
+	height: 30px;
+	font-size: 20px;
+	background: #222;
+	position: relative;
+	right: 14px !important;
+	bottom: 11px !important;
+	border-radius: 3px !important;
+}
+
+#topcontrol:after {
+	/*top: -2px;*/
+	left: 8.5px;
+	content: "\f106";
+	position: absolute;
+	text-align: center;
+	font-family: FontAwesome;
+}
+
+#topcontrol:hover {
+	color: #fff;
+	background: #18ba9b;
+	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
+	-o-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+}
+</style>
+<script type="text/javascript" src="jquery/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="script/docs.min.js"></script>
+<script type="text/javascript" src="script/back-to-top.js"></script>
+
+</head>
+<body>
+	<div class="navbar-wrapper">
+		<div class="container">
+			<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+				<div class="container">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="#" style="font-size: 32px;">创意产品众筹平台</a>
+					</div>
+					<div id="navbar" class="navbar-collapse collapse"
+						style="float: right;">
+						<ul class="nav navbar-nav">
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+								data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>
+									[[${session.loginMember.username}]]<span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="member.html"><i
+											class="glyphicon glyphicon-scale"></i> 会员中心</a></li>
+									<li><a href="#"><i class="glyphicon glyphicon-comment"></i>
+											消息</a></li>
+									<li class="divider"></li>
+									<li><a href="index.html" th:href="@{/auth/member/logout}"><i
+											class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+								</ul></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+
+		</div>
+	</div>
+	<div class="container">
+		<div class="row clearfix">
+			<div class="col-sm-3 col-md-3 column">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="thumbnail" style="border-radius: 0px;">
+							<img src="img/services-box1.jpg" class="img-thumbnail"
+								alt="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera">
+							<div class="caption" style="text-align: center;">
+								<h3>[[${session.loginMember.username}]]</h3>
+								<span class="label label-danger" style="cursor: pointer;"
+									onclick="window.location.href=''">未实名认证</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="list-group">
+					<div class="list-group-item" style="cursor: pointer;"
+						onclick="window.location.href='http://localhost/auth/member/to/center/page'">
+						资产总览<span class="badge"><i
+							class="glyphicon glyphicon-chevron-right"></i></span>
+					</div>
+					<div class="list-group-item active">
+						我的众筹<span class="badge"><i
+							class="glyphicon glyphicon-chevron-right"></i></span>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-9 col-md-9 column">
+				<div id="myTabContent" class="tab-content" style="margin-top: 10px;">
+					<div role="tabpanel" class="tab-pane fade active in" id="home"
+						aria-labelledby="home-tab">
+
+						<ul id="myTab1" class="nav nav-tabs">
+							<li role="presentation"><a th:href="@{/member/my/crowd}">我支持的</a></li>
+							<li role="presentation" class="active"><a
+								th:href="@{/member/my/crowd/create}">我发起的</a></li>
+							<li class=" pull-right"><script type="text/javascript">
+								$(function() {
+									$("#launchCrowdBtn")
+											.click(
+													function() {
+														window.location.href = "http://localhost/project/agree/protocol/page";
+													});
+								});
+							</script>
+								<button id="launchCrowdBtn" type="button"
+									class="btn btn-warning">发起众筹</button></li>
+						</ul>
+						<div id="myTab1" class="tab-content" style="margin-top: 10px;">
+							<div role="tabpanel" class="tab-pane fade active in" id="support"
+								aria-labelledby="home-tab">
+								<div class="container-fluid">
+									<div class="row clearfix">
+										<div th:if="${#strings.isEmpty(portal_member_data)}">暂未发起任何项目</div>
+										<div th:if="${not #strings.isEmpty(portal_member_data)}">
+											<div class="col-md-12 column"
+												style="padding: 0; margin-top: 10px;">
+												<table class="table table-bordered"
+													style="text-align: center; width: 910px;">
+													<tr style="background-color: #ddd;">
+														<td width="533">项目信息</td>
+														<td width="123">目标金额（元）</td>
+														<td width="83">关注人数</td>
+														<td width="83">支持人数</td>
+														<td width="">操作</td>
+													</tr>
+												</table>
+												<div th:each="memberProject : ${portal_member_data}"
+													style="height: 100px; width: 910px; display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; -webkit-justify-content: center; justify-content: center;">
+													<div style="width: 530px; display: inline-block;">
+														<div class="caption">
+															<h4>
+																<i title="名称" th:text="${memberProject.projectName}">1</i>
+															</h4>
+															<p>
+															<div style="float: left;">
+																<i class="glyphicon glyphicon-screenshot" title="目标金额">已完成</i>
+																<span th:text="${memberProject.percentage}+'% '">40%
+																</span>
+															</div>
+															<div style="float: right;">
+																<i title="截至日期" class="glyphicon glyphicon-calendar"></i>
+																<span th:text="${memberProject.deployDate}">2020-20-20</span>
+															</div>
+															</p>
+															<br>
+															<div class="progress" style="margin-bottom: 4px;">
+																<div class="progress-bar progress-bar-success"
+																	role="progressbar"
+																	th:aria-valuenow="${memberProject.percentage}"
+																	aria-valuenow="40" aria-valuemin="0"
+																	aria-valuemax="100"
+																	th:style="'width: '+${memberProject.percentage}+'%'"
+																	style="width: 40%"></div>
+															</div>
+														</div>
+													</div>
+													<div
+														style="vertical-align: middle; width: 120px; display: inline-block;">
+														<i style="text-align: center; display: block;"
+															title="目标金额" th:text="${memberProject.money}">1.00</i>
+													</div>
+													<div
+														style="vertical-align: middle; width: 80px; display: inline-block;">
+														<i style="text-align: center; display: block;"
+															title="关注人数" th:text="${memberProject.follower}">0</i>
+													</div>
+													<div
+														style="vertical-align: middle; width: 80px; display: inline-block;">
+														<i title="支持人数"></i> <span
+															style="text-align: center; display: block;"
+															th:text="${memberProject.supporter}">0</span>
+													</div>
+													<div style="vertical-align: middle; display: inline-block;">
+														<div class="btn-group-vertical" role="group"
+															aria-label="Vertical button group">
+															<a class="btn btn-default"
+																th:href="'http://localhost/project/get/project/detail/'+${memberProject.projectId}">项目详情</a>
+															<a class="btn btn-default"
+																th:href="'http://localhost/project/delete/project/detail/'+${memberProject.projectId}">删除项目</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</body>
+</html>

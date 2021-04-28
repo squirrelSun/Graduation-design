@@ -3,8 +3,11 @@ package com.sust.swy.crowd.mapper;
 import com.sust.swy.crowd.entity.po.ReturnPO;
 import com.sust.swy.crowd.entity.po.ReturnPOExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface ReturnPOMapper {
 	int countByExample(ReturnPOExample example);
 

@@ -1,10 +1,17 @@
 package com.sust.swy.crowd.mapper;
 
-import com.sust.swy.crowd.entity.po.ProjectPO;
-import com.sust.swy.crowd.entity.po.ProjectPOExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.sust.swy.crowd.entity.po.ProjectPO;
+import com.sust.swy.crowd.entity.po.ProjectPOExample;
+import com.sust.swy.crowd.entity.vo.DetailProjectVO;
+import com.sust.swy.crowd.entity.vo.PortalProjectVO;
+import com.sust.swy.crowd.entity.vo.PortalTypeVO;
+
+@Mapper
 public interface ProjectPOMapper {
 	int countByExample(ProjectPOExample example);
 
@@ -31,4 +38,10 @@ public interface ProjectPOMapper {
 	void insertTypeRelationship(@Param("typeIdList") List<Integer> typeIdList, @Param("projectId") Integer projectId);
 
 	void insertTagRelationship(@Param("tagIdList") List<Integer> tagIdList, @Param("projectId") Integer projectId);
+
+	List<PortalTypeVO> selectPortalTypeVOList();
+
+	DetailProjectVO selectDetailProjectVO(Integer projectId);
+
+	List<PortalProjectVO> selectPortalProjectVOListByMemberId(Integer memberId);
 }

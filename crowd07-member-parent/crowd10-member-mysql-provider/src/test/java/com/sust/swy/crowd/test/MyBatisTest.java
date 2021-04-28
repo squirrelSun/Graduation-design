@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.sust.swy.crowd.entity.po.MemberPO;
 import com.sust.swy.crowd.mapper.MemberPOMapper;
+import com.sust.swy.crowd.mapper.ProjectPOMapper;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -26,6 +27,9 @@ public class MyBatisTest {
 
 	@Autowired
 	private MemberPOMapper memberPOMapper;
+	
+	@Autowired
+	private ProjectPOMapper mapperPoMapper;
 
 	private Logger logger = LoggerFactory.getLogger(MyBatisTest.class);
 

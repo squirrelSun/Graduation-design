@@ -3,28 +3,31 @@ package com.sust.swy.crowd.mapper;
 import com.sust.swy.crowd.entity.po.TypePO;
 import com.sust.swy.crowd.entity.po.TypePOExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface TypePOMapper {
-    int countByExample(TypePOExample example);
+	int countByExample(TypePOExample example);
 
-    int deleteByExample(TypePOExample example);
+	int deleteByExample(TypePOExample example);
 
-    int deleteByPrimaryKey(Integer id);
+	int deleteByPrimaryKey(Integer id);
 
-    int insert(TypePO record);
+	int insert(TypePO record);
 
-    int insertSelective(TypePO record);
+	int insertSelective(TypePO record);
 
-    List<TypePO> selectByExample(TypePOExample example);
+	List<TypePO> selectByExample(TypePOExample example);
 
-    TypePO selectByPrimaryKey(Integer id);
+	TypePO selectByPrimaryKey(Integer id);
 
-    int updateByExampleSelective(@Param("record") TypePO record, @Param("example") TypePOExample example);
+	int updateByExampleSelective(@Param("record") TypePO record, @Param("example") TypePOExample example);
 
-    int updateByExample(@Param("record") TypePO record, @Param("example") TypePOExample example);
+	int updateByExample(@Param("record") TypePO record, @Param("example") TypePOExample example);
 
-    int updateByPrimaryKeySelective(TypePO record);
+	int updateByPrimaryKeySelective(TypePO record);
 
-    int updateByPrimaryKey(TypePO record);
+	int updateByPrimaryKey(TypePO record);
 }

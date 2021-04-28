@@ -28,6 +28,38 @@
 		<result column="header_picture_path"
 			property="headerPicturePath" jdbcType="VARCHAR" />
 	</resultMap>
+	<resultMap type="com.sust.swy.crowd.entity.vo.PortalTypeVO"
+		id="loadPortalProjectListResultMap">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="remark" property="remark" />
+		<collection property="portalProjectVOList" column="id"
+			ofType="com.sust.swy.crowd.entity.vo.PortalProjectVO"
+			select="com.sust.swy.crowd.mapper.ProjectPOMapper.selectPortalProjectVOList" />
+	</resultMap>
+
+	<resultMap
+		type="com.sust.swy.crowd.entity.vo.DetailProjectVO"
+		id="loadProjectDetailResultMap">
+		<id column="id" property="projectId" />
+		<result column="project_name" property="projectName" />
+		<result column="project_description" property="projectDesc" />
+		<result column="money" property="money" />
+		<result column="status" property="status" />
+		<result column="deploydate" property="deployDate" />
+		<result column="supportmoney" property="supportMoney" />
+		<result column="follower" property="followerCount" />
+		<result column="supporter" property="supporterCount" />
+		<result column="header_picture_path"
+			property="headerPicturePath" />
+		<collection property="detailPicturePathList"
+			select="com.sust.swy.crowd.mapper.ProjectPOMapper.selectDetailPicturePath"
+			column="id" />
+		<collection property="detailReturnVOList"
+			select="com.sust.swy.crowd.mapper.ProjectPOMapper.selectDeatailReturnVO"
+			column="id" />
+	</resultMap>
+
 	<sql id="Example_Where_Clause">
 		<where>
 			<foreach collection="oredCriteria" item="criteria"
@@ -101,28 +133,7 @@
 		supporter, completion, memberid, createdate,
 		follower, header_picture_path
 	</sql>
-	<select id="selectByExample" resultMap="BaseResultMap"
-		parameterType="com.sust.swy.crowd.entity.po.ProjectPOExample">
-		select
-		<if test="distinct">
-			distinct
-		</if>
-		<include refid="Base_Column_List" />
-		from t_project
-		<if test="_parameter != null">
-			<include refid="Example_Where_Clause" />
-		</if>
-		<if test="orderByClause != null">
-			order by ${orderByClause}
-		</if>
-	</select>
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
-		parameterType="java.lang.Integer">
-		select
-		<include refid="Base_Column_List" />
-		from t_project
-		where id = #{id,jdbcType=INTEGER}
-	</select>
+
 	<delete id="deleteByPrimaryKey"
 		parameterType="java.lang.Integer">
 		delete from t_project
@@ -166,7 +177,8 @@
 		#{memberid,jdbcType=INTEGER}, #{createdate,jdbcType=VARCHAR},
 		#{follower,jdbcType=INTEGER}, #{headerPicturePath,jdbcType=VARCHAR})
 	</insert>
-	<insert id="insertSelective" useGeneratedKeys="true" keyProperty="id"
+	<insert id="insertSelective" useGeneratedKeys="true"
+		keyProperty="id"
 		parameterType="com.sust.swy.crowd.entity.po.ProjectPO">
 		insert into t_project
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -258,6 +270,74 @@
 			</if>
 		</trim>
 	</insert>
+	<select id="selectPortalProjectVOListByMemberId"
+		resultType="com.sust.swy.crowd.entity.vo.PortalProjectVO">
+		SELECT
+		id projectId,
+		project_name projectName,
+		money,
+		deploydate deployDate,
+		supportmoney/money*100 percentage,
+		supporter supporter,
+		follower,
+		header_picture_path headerPicturePath
+		FROM
+		t_project
+		WHERE memberid = #{id}
+	</select>
+	<select id="selectPortalTypeVOList"
+		resultMap="loadPortalProjectListResultMap"> select id,name,remark from t_type </select>
+	<select id="selectPortalProjectVOList"
+		resultType="com.sust.swy.crowd.entity.vo.PortalProjectVO">
+		SELECT t_project.id projectId, project_name projectName,
+		money, deploydate
+		deployDate, supportmoney/money*100 percentage,
+		supporter supporter,
+		header_picture_path headerPicturePath FROM
+		t_project LEFT JOIN
+		t_project_type ON
+		t_project.id=t_project_type.projectid
+		WHERE t_project_type.typeid=#{id}
+		ORDER BY t_project.id DESC LIMIT 0,4
+	</select>
+	<select id="selectDetailPicturePath" resultType="string">
+		SELECT
+		item_pic_path FROM t_project_item_pic WHERE projectid=#{id}
+	</select>
+	<select id="selectDeatailReturnVO"
+		resultType="com.sust.swy.crowd.entity.vo.DetailReturnVO">select id returnId, supportmoney supportMoney, content,
+		signalpurchase signalPurchase, purchase, freight, returndate from
+		t_return where projectid=#{id}
+	</select>
+	<select id="selectDetailProjectVO"
+		resultMap="loadProjectDetailResultMap"> select id, project_name, project_description , money, day,
+		status, deploydate, supportmoney, supporter, supportmoney/money*100
+		percentage, follower, header_picture_path from t_project
+		where
+		id=#{projectId}
+	</select>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.sust.swy.crowd.entity.po.ProjectPOExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from t_project
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_project
+		where id = #{id,jdbcType=INTEGER}
+	</select>
 	<select id="countByExample"
 		parameterType="com.sust.swy.crowd.entity.po.ProjectPOExample"
 		resultType="java.lang.Integer">
