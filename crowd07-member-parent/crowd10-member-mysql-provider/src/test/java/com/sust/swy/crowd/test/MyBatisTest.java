@@ -28,9 +28,6 @@ public class MyBatisTest {
 	@Autowired
 	private MemberPOMapper memberPOMapper;
 	
-	@Autowired
-	private ProjectPOMapper mapperPoMapper;
-
 	private Logger logger = LoggerFactory.getLogger(MyBatisTest.class);
 
 	@Test

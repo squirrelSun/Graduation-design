@@ -24,5 +24,12 @@ zuul:  ignored-services: "*"
     crowd-project:
       service-id: sust-swy-crowd-project
       path: /project/**
-      
-      
+    crowd-order:
+      service-id: sust-swy-crowd-order
+      path: /order/**
+    crowd-pay:
+      service-id: sust-swy-crowd-pay
+      path: /pay/**
+ribbon:
+  ReadTimeout: 3000
+  ConnectTimeout: 3000

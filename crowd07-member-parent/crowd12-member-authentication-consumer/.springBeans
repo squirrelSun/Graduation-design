@@ -10,7 +10,6 @@
 		<config>src/main/java/com/sust/swy/crowd/CrowdMainClass.java</config>
 	</configs>
 	<autoconfigs>
-		<config>java:com.sust.swy.crowd.CrowdMainClass</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>
