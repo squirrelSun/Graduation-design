@@ -53,4 +53,10 @@ public interface MySQLRemoteService {
 	@RequestMapping("/save/order/remote")
 	ResultEntity<String> saveOrderRemote(@RequestBody OrderVO orderVO);
 
+	@RequestMapping("/get/memberpo/by/memeber/id")
+	ResultEntity<MemberPO> getMemberPOByMemberid(@RequestParam("memberId") String memberId);
+
+	@RequestMapping("/save/order/num/member/id")
+	void addOrderWithPayOrderNum(@RequestParam("payOrderNum") String payOrderNum,@RequestParam("memberId") String memberId);
+
 }

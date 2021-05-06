@@ -17,6 +17,8 @@ public class OrderPO {
 
     private String addressId;
 
+    private String memberId;
+
     public Integer getId() {
         return id;
     }
@@ -79,5 +81,13 @@ public class OrderPO {
 
     public void setAddressId(String addressId) {
         this.addressId = addressId == null ? null : addressId.trim();
+    }
+
+    public String getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(String memberId) {
+        this.memberId = memberId == null ? null : memberId.trim();
     }
 }

@@ -297,7 +297,7 @@
 		t_project LEFT JOIN
 		t_project_type ON
 		t_project.id=t_project_type.projectid
-		WHERE t_project_type.typeid=#{id}
+		WHERE t_project_type.typeid=#{id} and t_project.status = 1
 		ORDER BY t_project.id DESC LIMIT 0,4
 	</select>
 	<select id="selectDetailPicturePath" resultType="string">

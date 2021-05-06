@@ -28,6 +28,8 @@ public class OrderVO implements Serializable {
 	private String orderRemark;
 
 	private String addressId;
+	
+	private String memberId;
 
 	private OrderProjectVO orderProjectVO;
 

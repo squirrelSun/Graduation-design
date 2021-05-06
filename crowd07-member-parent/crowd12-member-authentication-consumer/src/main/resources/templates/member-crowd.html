@@ -137,7 +137,7 @@
 									$("#launchCrowdBtn")
 											.click(
 													function() {
-														window.location.href = "http://localhost/project/agree/protocol/page";
+														window.location.href = "http://localhost/project/agree/protocol/page/" + [[${session.loginMember.id}]];
 													});
 								});
 							</script>
@@ -149,11 +149,6 @@
 								aria-labelledby="home-tab">
 								<div class="container-fluid">
 									<div class="row clearfix">
-										<div class="col-md-12 column">
-											<span class="label label-warning">全部</span> <span
-												class="label" style="color: #000;">已支付</span> <span
-												class="label " style="color: #000;">未支付</span>
-										</div>
 										<div class="col-md-12 column"
 											style="margin-top: 10px; padding: 0;">
 											<table class="table table-bordered"

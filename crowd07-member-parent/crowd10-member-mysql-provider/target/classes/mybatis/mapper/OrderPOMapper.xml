@@ -16,6 +16,7 @@
 			jdbcType="CHAR" />
 		<result column="address_id" property="addressId"
 			jdbcType="CHAR" />
+		<result column="member_id" property="memberId" jdbcType="CHAR" />
 	</resultMap>
 	<sql id="Example_Where_Clause">
 		<where>
@@ -87,7 +88,7 @@
 		id, order_num, pay_order_num, order_amount, invoice,
 		invoice_title,
 		order_remark,
-		address_id
+		address_id, member_id
 	</sql>
 	<select id="selectByExample" resultMap="BaseResultMap"
 		parameterType="com.sust.swy.crowd.entity.po.OrderPOExample">
@@ -129,14 +130,17 @@
 		insert into t_order (id,
 		order_num, pay_order_num,
 		order_amount, invoice, invoice_title,
-		order_remark, address_id)
+		order_remark, address_id, member_id
+		)
 		values (#{id,jdbcType=INTEGER},
 		#{orderNum,jdbcType=CHAR},
 		#{payOrderNum,jdbcType=CHAR},
 		#{orderAmount,jdbcType=DOUBLE}, #{invoice,jdbcType=INTEGER},
 		#{invoiceTitle,jdbcType=CHAR},
 		#{orderRemark,jdbcType=CHAR},
-		#{addressId,jdbcType=CHAR})
+		#{addressId,jdbcType=CHAR},
+		#{memberId,jdbcType=CHAR}
+		)
 	</insert>
 	<insert id="insertSelective"
 		parameterType="com.sust.swy.crowd.entity.po.OrderPO">
@@ -166,6 +170,9 @@
 			<if test="addressId != null">
 				address_id,
 			</if>
+			<if test="memberId != null">
+				member_id,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -191,6 +198,9 @@
 			</if>
 			<if test="addressId != null">
 				#{addressId,jdbcType=CHAR},
+			</if>
+			<if test="memberId != null">
+				#{memberId,jdbcType=CHAR},
 			</if>
 		</trim>
 	</insert>
@@ -229,6 +239,9 @@
 			<if test="record.addressId != null">
 				address_id = #{record.addressId,jdbcType=CHAR},
 			</if>
+			<if test="record.memberId != null">
+				member_id = #{record.memberId,jdbcType=CHAR},
+			</if>
 		</set>
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
@@ -250,7 +263,9 @@
 		order_remark =
 		#{record.orderRemark,jdbcType=CHAR},
 		address_id =
-		#{record.addressId,jdbcType=CHAR}
+		#{record.addressId,jdbcType=CHAR},
+		member_id =
+		#{record.memberId,jdbcType=CHAR}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
@@ -280,6 +295,9 @@
 			<if test="addressId != null">
 				address_id = #{addressId,jdbcType=CHAR},
 			</if>
+			<if test="memberId != null">
+				member_id = #{memberId,jdbcType=CHAR},
+			</if>
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
@@ -294,7 +312,8 @@
 		invoice_title = #{invoiceTitle,jdbcType=CHAR},
 		order_remark =
 		#{orderRemark,jdbcType=CHAR},
-		address_id = #{addressId,jdbcType=CHAR}
+		address_id = #{addressId,jdbcType=CHAR},
+		member_id = #{memberId,jdbcType=CHAR}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 </mapper>

@@ -8,4 +8,6 @@ public interface MemberService {
 
 	void saveMember(MemberPO memberPO);
 
+	MemberPO getMemberPOByMemberid(String memberId);
+
 }

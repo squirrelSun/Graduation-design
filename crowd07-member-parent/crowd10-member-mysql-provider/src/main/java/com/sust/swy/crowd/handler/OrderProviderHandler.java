@@ -20,18 +20,23 @@ public class OrderProviderHandler {
 	@Autowired
 	private OrderService orderService;
 
+	@RequestMapping("/save/order/num/member/id")
+	void addOrderWithPayOrderNum(@RequestParam("payOrderNum") String payOrderNum,
+			@RequestParam("memberId") String memberId) {
+		orderService.updateOrderWithPayOrderNum(payOrderNum , memberId);
+	}
+
 	@RequestMapping("/save/order/remote")
 	ResultEntity<String> saveOrderRemote(@RequestBody OrderVO orderVO) {
 		try {
 			orderService.saveOrder(orderVO);
-			System.out.println(orderVO.getAddressId() + "-----------------");
 			return ResultEntity.successWithoutData();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResultEntity.failed(e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping("/save/address/remote")
 	public ResultEntity<String> saveAddressRemote(@RequestBody AddressVO addressVO) {
 		try {

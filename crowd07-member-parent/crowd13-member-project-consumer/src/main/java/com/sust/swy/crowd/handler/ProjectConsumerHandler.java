@@ -19,11 +19,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sust.swy.crowd.api.MySQLRemoteService;
 import com.sust.swy.crowd.config.OSSProperties;
 import com.sust.swy.crowd.constant.CrowdConstant;
+import com.sust.swy.crowd.entity.po.MemberPO;
 import com.sust.swy.crowd.entity.vo.DetailProjectVO;
 import com.sust.swy.crowd.entity.vo.MemberConfirmInfoVO;
 import com.sust.swy.crowd.entity.vo.MemberLoginVO;
 import com.sust.swy.crowd.entity.vo.ProjectVO;
 import com.sust.swy.crowd.entity.vo.ReturnVO;
+import com.sust.swy.crowd.exception.AccessForCreateException;
 import com.sust.swy.crowd.util.CrowdUtil;
 import com.sust.swy.crowd.util.ResultEntity;
 
@@ -34,6 +36,21 @@ public class ProjectConsumerHandler {
 
 	@Autowired
 	private MySQLRemoteService mySQLRemoteService;
+
+	@RequestMapping("/agree/protocol/page/{memberId}")
+	public String toAgreeProtocolPage(@PathVariable("memberId") String memberId) {
+		ResultEntity<MemberPO> resultEntity = mySQLRemoteService.getMemberPOByMemberid(memberId);
+		MemberPO memberPO = resultEntity.getQueryData();
+		if (memberPO != null || memberPO.getAuthstatus() != null) {
+			if (memberPO.getAuthstatus() == 2) {
+				return "project-agree";
+			} else {
+				throw new AccessForCreateException(CrowdConstant.MESSAGE_LOGIN_ACCT_ALREADY_IN_USE);
+			}
+		} else {
+			throw new AccessForCreateException(CrowdConstant.MESSAGE_LOGIN_ACCT_ALREADY_IN_USE);
+		}
+	}
 
 	@RequestMapping("/get/project/detail/{projectId}")
 	public String getProjectDetail(@PathVariable("projectId") Integer projectId, Model model) {

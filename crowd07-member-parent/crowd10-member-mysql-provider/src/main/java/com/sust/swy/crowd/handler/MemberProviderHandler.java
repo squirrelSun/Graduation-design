@@ -18,6 +18,17 @@ public class MemberProviderHandler {
 	@Autowired
 	MemberService memberService;
 
+	@RequestMapping("/get/memberpo/by/memeber/id")
+	public ResultEntity<MemberPO> getMemberPOByMemberid(@RequestParam("memberId") String memberId){
+		try {
+			MemberPO memberPO = memberService.getMemberPOByMemberid(memberId);
+			return ResultEntity.successWithData(memberPO);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultEntity.failed(e.getMessage());
+		}
+	}
+	
 	@RequestMapping("/save/memeber/remote")
 	public ResultEntity<String> saveMeneber(@RequestBody MemberPO memberPO) {
 		try {

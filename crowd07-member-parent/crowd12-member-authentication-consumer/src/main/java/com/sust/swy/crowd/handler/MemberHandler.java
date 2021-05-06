@@ -39,15 +39,20 @@ public class MemberHandler {
 	@Autowired
 	MySQLRemoteService mySQLRemoteService;
 
+	@RequestMapping("/member/my/crowd")
+	public String myCrowd(Model model, HttpSession session) {
+		
+		
+		return "member-crowd";
+	}
+	
 	@RequestMapping("/member/my/crowd/create")
 	public String myCreate(Model model, HttpSession session) {
 		MemberLoginVO memberLoginVO = (MemberLoginVO) session.getAttribute(CrowdConstant.ATTR_NAME_LOGIN_MEMBER);
 		Integer memberId = memberLoginVO.getId();
 		ResultEntity<List<PortalProjectVO>> resultEntity = mySQLRemoteService.getProjectByMemberId(memberId);
-		// 查询是否成功
 		String result = resultEntity.getOperationResult();
 		if (ResultEntity.SUCCESS.equals(result)) {
-			// 获取查询结果数据
 			List<PortalProjectVO> list = resultEntity.getQueryData();
 			model.addAttribute(CrowdConstant.ATTR_NAME_PORTAL_MEMBER_DATA, list);
 		}

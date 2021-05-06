@@ -16,4 +16,6 @@ public interface OrderService {
 
 	void saveOrder(OrderVO orderVO);
 
+	void updateOrderWithPayOrderNum(String payOrderNum, String memberId);
+
 }

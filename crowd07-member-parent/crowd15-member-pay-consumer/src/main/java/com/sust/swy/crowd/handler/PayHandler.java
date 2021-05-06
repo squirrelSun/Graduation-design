@@ -69,7 +69,6 @@ public class PayHandler {
 
 	}
 
-	@ResponseBody
 	@RequestMapping("/return")
 	public String returnUrlMethod(HttpServletRequest request, HttpSession session)
 			throws AlipayApiException, UnsupportedEncodingException {
@@ -89,14 +88,12 @@ public class PayHandler {
 		boolean signVerified = AlipaySignature.rsaCheckV1(params, payProperties.getAlipayPublicKey(),
 				payProperties.getCharset(), payProperties.getSignType()); 
 		if (signVerified) {
-			String orderNum = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"), "UTF-8");
 			String payOrderNum = new String(request.getParameter("trade_no").getBytes("ISO-8859-1"), "UTF-8");
-			String orderAmount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"), "UTF-8");
 			OrderVO orderVO = (OrderVO) session.getAttribute("orderVO");
 			orderVO.setPayOrderNum(payOrderNum);
 			ResultEntity<String> resultEntity = mySQLRemoteService.saveOrderRemote(orderVO);
 			logger.info("Order save result=" + resultEntity.getOperationResult());
-			return "trade_no:" + payOrderNum + "<br/>out_trade_no:" + orderNum + "<br/>total_amount:" + orderAmount;
+			return "redirect:http://localhost/order/success/" + payOrderNum;
 		} else {
 			return "验签失败";
 		}

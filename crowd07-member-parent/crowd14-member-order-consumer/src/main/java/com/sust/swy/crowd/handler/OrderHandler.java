@@ -26,6 +26,14 @@ public class OrderHandler {
 
 	private Logger logger = LoggerFactory.getLogger(OrderHandler.class);
 
+	@RequestMapping("/success/{payOrderNum}")
+	public String paySuccess(@PathVariable("payOrderNum") String payOrderNum, HttpSession session) {
+		MemberLoginVO memberLoginVO = (MemberLoginVO) session.getAttribute(CrowdConstant.ATTR_NAME_LOGIN_MEMBER);
+		Integer memberId = memberLoginVO.getId();
+		mySQLRemoteService.addOrderWithPayOrderNum(payOrderNum, String.valueOf(memberId));
+		return "pay-success";
+	}
+
 	@RequestMapping("/save/address")
 	public String saveAddress(AddressVO addressVO, HttpSession session) {
 		ResultEntity<String> resultEntity = mySQLRemoteService.saveAddressRemote(addressVO);
@@ -37,11 +45,11 @@ public class OrderHandler {
 
 	@RequestMapping("/confirm/order/{returnCount}")
 	public String showConfirmOrderInfo(@PathVariable("returnCount") Integer returnCount, HttpSession session) {
+		MemberLoginVO memberLoginVO = (MemberLoginVO) session.getAttribute(CrowdConstant.ATTR_NAME_LOGIN_MEMBER);
+		Integer memberId = memberLoginVO.getId();
 		OrderProjectVO orderProjectVO = (OrderProjectVO) session.getAttribute("orderProjectVO");
 		orderProjectVO.setReturnCount(returnCount);
 		session.setAttribute("orderProjectVO", orderProjectVO);
-		MemberLoginVO memberLoginVO = (MemberLoginVO) session.getAttribute(CrowdConstant.ATTR_NAME_LOGIN_MEMBER);
-		Integer memberId = memberLoginVO.getId();
 		ResultEntity<List<AddressVO>> resultEntity = mySQLRemoteService.getAddressVORemote(memberId);
 		if (ResultEntity.SUCCESS.equals(resultEntity.getOperationResult())) {
 			List<AddressVO> list = resultEntity.getQueryData();

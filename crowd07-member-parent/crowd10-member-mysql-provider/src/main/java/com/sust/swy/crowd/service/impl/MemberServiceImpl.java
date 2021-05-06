@@ -37,4 +37,15 @@ public class MemberServiceImpl implements MemberService {
 		memberPoMapper.insertSelective(memberPO);
 	}
 
+	@Override
+	public MemberPO getMemberPOByMemberid(String memberId) {
+		MemberPOExample example = new MemberPOExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(Integer.valueOf(memberId));
+		List<MemberPO> list = memberPoMapper.selectByExample(example);
+		if (list == null || list.size() == 0)
+			return null;
+		return list.get(0);
+	}
+
 }
