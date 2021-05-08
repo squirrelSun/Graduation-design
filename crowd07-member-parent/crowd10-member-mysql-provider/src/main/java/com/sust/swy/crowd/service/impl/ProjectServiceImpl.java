@@ -16,6 +16,8 @@ import com.sust.swy.crowd.entity.po.MemberConfirmInfoPO;
 import com.sust.swy.crowd.entity.po.MemberLaunchInfoPO;
 import com.sust.swy.crowd.entity.po.ProjectPO;
 import com.sust.swy.crowd.entity.po.ReturnPO;
+import com.sust.swy.crowd.entity.po.TypePO;
+import com.sust.swy.crowd.entity.po.TypePOExample;
 import com.sust.swy.crowd.entity.vo.DetailProjectVO;
 import com.sust.swy.crowd.entity.vo.MemberConfirmInfoVO;
 import com.sust.swy.crowd.entity.vo.MemberLauchInfoVO;
@@ -23,11 +25,13 @@ import com.sust.swy.crowd.entity.vo.PortalProjectVO;
 import com.sust.swy.crowd.entity.vo.PortalTypeVO;
 import com.sust.swy.crowd.entity.vo.ProjectVO;
 import com.sust.swy.crowd.entity.vo.ReturnVO;
+import com.sust.swy.crowd.entity.vo.TypeVO;
 import com.sust.swy.crowd.mapper.MemberConfirmInfoPOMapper;
 import com.sust.swy.crowd.mapper.MemberLaunchInfoPOMapper;
 import com.sust.swy.crowd.mapper.ProjectItemPicPOMapper;
 import com.sust.swy.crowd.mapper.ProjectPOMapper;
 import com.sust.swy.crowd.mapper.ReturnPOMapper;
+import com.sust.swy.crowd.mapper.TypePOMapper;
 import com.sust.swy.crowd.service.api.ProjectService;
 
 @Transactional(readOnly = true)
@@ -48,6 +52,9 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Autowired
 	private ProjectItemPicPOMapper projectItemPicPOMapper;
+	
+	@Autowired
+	private TypePOMapper typePOMapper;
 
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
 	@Override
@@ -132,6 +139,32 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public List<PortalProjectVO> getDetailProjectVOByMemberId(Integer memberId) {
 		return projectPOMapper.selectPortalProjectVOListByMemberId(memberId);
+	}
+
+	@Override
+	public List<PortalProjectVO> getProjectVOByTypeId(Integer typeId, String keyword) {
+		if (typeId == -1) {
+			return projectPOMapper.selectProjectAll(keyword);
+		}
+		return projectPOMapper.selectProjectByTypeId(typeId, keyword);
+	}
+
+	@Override
+	public List<TypeVO> getTypeVO() {
+		List<TypePO> POList = typePOMapper.selectByExample(new TypePOExample());
+		List<TypeVO> VOList = new ArrayList<TypeVO>();
+		for (TypePO po : POList) {
+			TypeVO vo = new TypeVO();
+			BeanUtils.copyProperties(po, vo);
+			VOList.add(vo);
+		}
+		return VOList;
+	}
+
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
+	@Override
+	public void removeProjectByProjectId(String projectId) {
+		projectPOMapper.deleteByPrimaryKey(Integer.valueOf(projectId));
 	}
 
 }

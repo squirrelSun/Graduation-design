@@ -23,6 +23,7 @@ import com.sust.swy.crowd.constant.CrowdConstant;
 import com.sust.swy.crowd.entity.po.MemberPO;
 import com.sust.swy.crowd.entity.vo.MemberLoginVO;
 import com.sust.swy.crowd.entity.vo.MemberVO;
+import com.sust.swy.crowd.entity.vo.OrderProjectLauchVO;
 import com.sust.swy.crowd.entity.vo.PortalProjectVO;
 import com.sust.swy.crowd.util.CrowdUtil;
 import com.sust.swy.crowd.util.ResultEntity;
@@ -41,8 +42,14 @@ public class MemberHandler {
 
 	@RequestMapping("/member/my/crowd")
 	public String myCrowd(Model model, HttpSession session) {
-		
-		
+		MemberLoginVO memberLoginVO = (MemberLoginVO) session.getAttribute(CrowdConstant.ATTR_NAME_LOGIN_MEMBER);
+		Integer memberId = memberLoginVO.getId();
+		ResultEntity<List<OrderProjectLauchVO>> resultEntity = mySQLRemoteService.getOrderProjectLauchByMemberId(memberId);
+		String result = resultEntity.getOperationResult();
+		if (ResultEntity.SUCCESS.equals(result)) {
+			List<OrderProjectLauchVO> list = resultEntity.getQueryData();
+			model.addAttribute(CrowdConstant.ATTR_NAME_PORTAL_MEMBER_DATA, list);
+		}
 		return "member-crowd";
 	}
 	

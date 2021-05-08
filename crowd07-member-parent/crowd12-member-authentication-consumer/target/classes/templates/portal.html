@@ -179,6 +179,20 @@ h3 {
 	overflow: hidden;
 }
 
+.label-type, .label-status, .label-order {
+	background-color: #fff;
+	color: #f60;
+	padding: 5px;
+	border: 1px #f60 solid;
+}
+
+.label-text {
+	margin: 0 10px;
+}
+
+.panel {
+	border-radius: 0;
+}
 /* 通用带图片的信息列表_普通式 */
 .picList {
 	padding: 10px;
@@ -213,16 +227,37 @@ h3.break>a {
 						<a class="navbar-brand" href="index.html" th:href="@{/}"
 							style="font-size: 32px;">创意产品众筹平台</a>
 					</div>
-					<div id="navbar" class="navbar-collapse collapse"
-						style="float: right;">
-						<ul class="nav navbar-nav navbar-right">
-							<li><a href="login.html"
-								th:href="@{/auth/member/to/login/page}">登录</a></li>
-							<li><a href="reg.html" th:href="@{/auth/member/to/reg/page}">注册</a></li>
-							<li><a>|</a></li>
-							<li><a
-								href="http://localhost:8080/crowd02-admin-webui/admin/to/login/page.html">管理员入口</a></li>
-						</ul>
+					<div th:if="${#strings.isEmpty(session.loginMember)}">
+						<div id="navbar" class="navbar-collapse collapse"
+							style="float: right;">
+							<ul class="nav navbar-nav navbar-right">
+								<li><a href="login.html"
+									th:href="@{/auth/member/to/login/page}">登录</a></li>
+								<li><a href="reg.html"
+									th:href="@{/auth/member/to/reg/page}">注册</a></li>
+								<li><a>|</a></li>
+								<li><a
+									href="http://localhost:8080/crowd02-admin-webui/admin/to/login/page.html">管理员入口</a></li>
+							</ul>
+						</div>
+					</div>
+					<div th:if="${not #strings.isEmpty(session.loginMember)}">
+						<div id="navbar" class="navbar-collapse collapse"
+							style="float: right;">
+							<ul class="nav navbar-nav">
+								<li class="dropdown"><a href="#" class="dropdown-toggle"
+									data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>
+										[[${session.loginMember.username}]]<span class="caret"></span></a>
+									<ul class="dropdown-menu" role="menu">
+										<li><a href="member.html"
+											th:href="@{/auth/member/to/center/page}"><i
+												class="glyphicon glyphicon-scale"></i> 会员中心</a></li>
+										<li class="divider"></li>
+										<li><a href="index.html" th:href="@{/auth/member/logout}"><i
+												class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+									</ul></li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</nav>
@@ -328,7 +363,9 @@ h3.break>a {
 					<div class="col-md-12 column">
 						<div class="box ui-draggable" id="mainBox">
 							<div class="mHd" style="">
-								<div class="path"></div>
+								<div class="path">
+									<a href="projects.html" th:href="'http://localhost/more/'+${type.id}">更多...</a>
+								</div>
 								<h3>
 									<label th:text="${type.name}">科技</label> <small
 										style="color: #FFF;" th:text="${type.remark}">开启智慧未来</small>
@@ -372,11 +409,8 @@ h3.break>a {
 													</div>
 													<div>
 														<span style="float: right;"> <i
-															class="glyphicon glyphicon-star-empty"></i></span> 
-															
-														<span><i
-															class="glyphicon glyphicon-user" title="支持人数"></i> 
-														<span
+															class="glyphicon glyphicon-star-empty"></i></span> <span><i
+															class="glyphicon glyphicon-user" title="支持人数"></i> <span
 															th:text="${project.supporter}">12345</span></span>
 													</div>
 												</div>

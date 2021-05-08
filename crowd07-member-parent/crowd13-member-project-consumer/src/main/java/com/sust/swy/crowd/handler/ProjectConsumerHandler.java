@@ -36,6 +36,13 @@ public class ProjectConsumerHandler {
 
 	@Autowired
 	private MySQLRemoteService mySQLRemoteService;
+	
+	@RequestMapping("/delete/project/detail/{projectId}")
+	public String deleteProjectDetail(@PathVariable("projectId") String projectId) {
+		mySQLRemoteService.deleteProjectDetailByProjectId(projectId);
+		return "redirect:http://localhost/member/my/crowd/create";
+	}
+	
 
 	@RequestMapping("/agree/protocol/page/{memberId}")
 	public String toAgreeProtocolPage(@PathVariable("memberId") String memberId) {

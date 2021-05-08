@@ -104,7 +104,7 @@
 												<td>
 													<c:if test="${0 eq member.authstatus }">未实名认证</c:if>
 													<c:if test="${1 eq member.authstatus }">实名认证申请中</c:if>
-													<c:if test="${2 eq member.authstatus }">已实名认证中</c:if>
+													<c:if test="${2 eq member.authstatus }">已实名认证</c:if>
 												</td>
 												<td>
 													<c:if test="${0 eq member.usertype }">个人</c:if>

@@ -44,4 +44,8 @@ public interface ProjectPOMapper {
 	DetailProjectVO selectDetailProjectVO(Integer projectId);
 
 	List<PortalProjectVO> selectPortalProjectVOListByMemberId(Integer memberId);
+
+	List<PortalProjectVO> selectProjectByTypeId(@Param("typeId") Integer typeId, @Param("keyword") String keyword);
+
+	List<PortalProjectVO> selectProjectAll(@Param("keyword") String keyword);
 }

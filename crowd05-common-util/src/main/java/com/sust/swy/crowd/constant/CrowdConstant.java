@@ -26,6 +26,7 @@ public class CrowdConstant {
 	public static final String ATTR_NAME_LOGIN_MEMBER = "loginMember";
 	public static final String ATTR_NAME_TEMPLE_PROJECT = "tempProject";
 	public static final String ATTR_NAME_PORTAL_DATA = "portal_data";
+	public static final String ATTR_NAME_TYPE = "type";
 	public static final String ATTR_NAME_PORTAL_MEMBER_DATA = "portal_member_data";
 	public static final String ATTR_NAME_ADMIN = "admin";
 	public static final String ATTR_NAME_MEMBER = "member";

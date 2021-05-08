@@ -23,11 +23,10 @@
 				<ul style="margin-top: 10px; display: none;">
 					<li style="height: 30px;"><a><i
 							class="glyphicon glyphicon-check"></i> 实名认证审核 </a></li>
-					<li style="height: 30px;"><a><i
+					<li style="height: 30px;"><a href="project/to/check.html"><i
 							class="glyphicon glyphicon-check"></i> 项目审核 </a></li>
 				</ul></li>
-			<li class="list-group-item tree-closed"><a><i
-					class="glyphicon glyphicon-list-alt"></i> 参数管理</a></li>
+
 		</ul>
 	</div>
 </div>

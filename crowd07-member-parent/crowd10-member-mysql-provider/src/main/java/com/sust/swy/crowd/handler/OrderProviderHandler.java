@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sust.swy.crowd.entity.po.MemberPO;
 import com.sust.swy.crowd.entity.vo.AddressVO;
+import com.sust.swy.crowd.entity.vo.OrderProjectLauchVO;
 import com.sust.swy.crowd.entity.vo.OrderProjectVO;
 import com.sust.swy.crowd.entity.vo.OrderVO;
 import com.sust.swy.crowd.service.api.OrderService;
@@ -20,10 +22,27 @@ public class OrderProviderHandler {
 	@Autowired
 	private OrderService orderService;
 
+	@RequestMapping("delete/order/detail/by/order/id")
+	public void deleteOrderDetailByOrderId(@RequestParam("orderId") String orderId) {
+		orderService.removeOrderDetailByOrderId(orderId);
+	}
+
+	@RequestMapping("/get/order/project/lauch/by/member/id")
+	ResultEntity<List<OrderProjectLauchVO>> getOrderProjectLauchByMemberId(@RequestParam("memberId") Integer memberId) {
+		try {
+			List<OrderProjectLauchVO> orderProjectLauchVOList = orderService
+					.getOrderProjectLauchListByMemberId(memberId);
+			return ResultEntity.successWithData(orderProjectLauchVOList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultEntity.failed(e.getMessage());
+		}
+	}
+
 	@RequestMapping("/save/order/num/member/id")
 	void addOrderWithPayOrderNum(@RequestParam("payOrderNum") String payOrderNum,
 			@RequestParam("memberId") String memberId) {
-		orderService.updateOrderWithPayOrderNum(payOrderNum , memberId);
+		orderService.updateOrderWithPayOrderNum(payOrderNum, memberId);
 	}
 
 	@RequestMapping("/save/order/remote")

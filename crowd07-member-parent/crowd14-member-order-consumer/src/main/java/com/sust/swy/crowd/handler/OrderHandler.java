@@ -26,6 +26,13 @@ public class OrderHandler {
 
 	private Logger logger = LoggerFactory.getLogger(OrderHandler.class);
 
+	@RequestMapping("/delete/order/detail/{orderId}")
+	public String deleteOrderDetail(@PathVariable("orderId") String orderId) {
+		mySQLRemoteService.deleteOrderDetailByOrderId(orderId);
+		return "redirect:http://localhost/member/my/crowd";
+	}
+	
+	
 	@RequestMapping("/success/{payOrderNum}")
 	public String paySuccess(@PathVariable("payOrderNum") String payOrderNum, HttpSession session) {
 		MemberLoginVO memberLoginVO = (MemberLoginVO) session.getAttribute(CrowdConstant.ATTR_NAME_LOGIN_MEMBER);
@@ -64,6 +71,7 @@ public class OrderHandler {
 		ResultEntity<OrderProjectVO> resultEntity = mySQLRemoteService.getOrderProjectVORemote(projectId, returnId);
 		if (ResultEntity.SUCCESS.equals(resultEntity.getOperationResult())) {
 			OrderProjectVO orderProjectVO = resultEntity.getQueryData();
+			orderProjectVO.setId(projectId);
 			session.setAttribute("orderProjectVO", orderProjectVO);
 		}
 		return "confirm_return";

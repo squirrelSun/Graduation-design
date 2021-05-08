@@ -13,6 +13,7 @@ import com.sust.swy.crowd.entity.vo.DetailProjectVO;
 import com.sust.swy.crowd.entity.vo.PortalProjectVO;
 import com.sust.swy.crowd.entity.vo.PortalTypeVO;
 import com.sust.swy.crowd.entity.vo.ProjectVO;
+import com.sust.swy.crowd.entity.vo.TypeVO;
 import com.sust.swy.crowd.service.api.ProjectService;
 import com.sust.swy.crowd.util.ResultEntity;
 
@@ -22,8 +23,36 @@ public class ProjectProviderHandler {
 	@Autowired
 	private ProjectService projectService;
 
+	@RequestMapping("delete/project/detail/by/project/id")
+	public void deleteProjectDetailByProjectId(@RequestParam("projectId") String projectId) {
+		projectService.removeProjectByProjectId(projectId);
+	}
+	
+	@RequestMapping("/get/type")
+	public ResultEntity<List<TypeVO>> getTypeVO(){
+		try {
+			List<TypeVO> typeVOList = projectService.getTypeVO();
+			return ResultEntity.successWithData(typeVOList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultEntity.failed(e.getMessage());
+		}
+	}
+	
+	@RequestMapping("/get/project/by/typd/id")
+	public ResultEntity<List<PortalProjectVO>> getProjectByTypeId(@RequestParam("typeId") Integer typeId,
+			@RequestParam("keyword") String keyword) {
+		try {
+			List<PortalProjectVO> portalProjectVOList = projectService.getProjectVOByTypeId(typeId, keyword);
+			return ResultEntity.successWithData(portalProjectVOList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultEntity.failed(e.getMessage());
+		}
+	}
+
 	@RequestMapping("/get/project/by/memberid")
-	public ResultEntity<List<PortalProjectVO>> getProjectByMemberId(@RequestParam("memberId") Integer memberId){
+	public ResultEntity<List<PortalProjectVO>> getProjectByMemberId(@RequestParam("memberId") Integer memberId) {
 		try {
 			List<PortalProjectVO> projectVOByMemberId = projectService.getDetailProjectVOByMemberId(memberId);
 			return ResultEntity.successWithData(projectVOByMemberId);
@@ -32,7 +61,7 @@ public class ProjectProviderHandler {
 			return ResultEntity.failed(e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping("/get/project/detail/remote/{projectId}")
 	public ResultEntity<DetailProjectVO> getDetailProjectVORemote(@PathVariable("projectId") Integer projectId) {
 		try {

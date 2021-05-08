@@ -96,7 +96,7 @@
 							<div class="caption" style="text-align: center;">
 								<h3>[[${session.loginMember.username}]]</h3>
 								<span class="label label-danger" style="cursor: pointer;"
-									onclick="window.location.href=''">未实名认证</span>
+									onclick="window.location.href='http://localhost/auth/member/to/certification/page'">未实名认证</span>
 							</div>
 						</div>
 					</div>
@@ -144,71 +144,89 @@
 											<div class="col-md-12 column"
 												style="padding: 0; margin-top: 10px;">
 												<table class="table table-bordered"
-													style="text-align: center; width: 910px;">
-													<tr style="background-color: #ddd;">
-														<td width="533">项目信息</td>
-														<td width="123">目标金额（元）</td>
-														<td width="83">关注人数</td>
-														<td width="83">支持人数</td>
-														<td width="">操作</td>
-													</tr>
+													style="text-align: center;">
+													<thead>
+														<tr style="background-color: #ddd;">
+															<td width="400">项目信息</td>
+															<td width="85">目标金额</td>
+															<td width="70">关注人数</td>
+															<td width="70">支持人数</td>
+															<td width="">操作</td>
+														</tr>
+													</thead>
+													<tbody>
+														<div th:each="memberProject : ${portal_member_data}"
+															style="display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; -webkit-justify-content: center; justify-content: center;">
+															<tr>
+																<td style="vertical-align: middle;">
+																	<div style="width: 400px; display: inline-block;">
+																		<div class="caption">
+																			<h4>
+																				<i title="名称" th:text="${memberProject.projectName}">1</i>
+																			</h4>
+																			<p>
+																			<div style="float: left;">
+																				<i class="glyphicon glyphicon-screenshot"
+																					title="目标金额">已完成</i> <span
+																					th:text="${memberProject.percentage}+'% '">40%
+																				</span>
+																			</div>
+																			<div style="float: right;">
+																				<i title="发起日期" class="glyphicon glyphicon-calendar"></i>
+																				<span th:text="${memberProject.deployDate}">2020-20-20</span>
+																			</div>
+																			</p>
+																			<br>
+																			<div class="progress" style="margin-bottom: 4px;">
+																				<div class="progress-bar progress-bar-success"
+																					role="progressbar"
+																					th:aria-valuenow="${memberProject.percentage}"
+																					aria-valuenow="40" aria-valuemin="0"
+																					aria-valuemax="100"
+																					th:style="'width: '+${memberProject.percentage}+'%'"
+																					style="width: 40%"></div>
+																			</div>
+																		</div>
+																	</div>
+																</td>
+																<td style="vertical-align: middle;">
+																	<div
+																		style="vertical-align: middle; width: 85px; display: inline-block;">
+																		<i style="text-align: center; display: block;"
+																			title="目标金额" th:text="${memberProject.money}">1.00</i>
+																	</div>
+																</td>
+																<td style="vertical-align: middle;">
+																	<div
+																		style="vertical-align: middle; width: 70px; display: inline-block;">
+																		<i style="text-align: center; display: block;"
+																			title="关注人数" th:text="${memberProject.follower}">0</i>
+																	</div>
+																</td>
+																<td style="vertical-align: middle;">
+																	<div
+																		style="vertical-align: middle; width: 70px; display: inline-block;">
+																		<i title="支持人数"></i> <span
+																			style="text-align: center; display: block;"
+																			th:text="${memberProject.supporter}">0</span>
+																	</div>
+																</td>
+																<td style="vertical-align: middle;">
+																	<div
+																		style="vertical-align: middle; display: inline-block;">
+																		<div class="btn-group-vertical" role="group"
+																			aria-label="Vertical button group">
+																			<a class="btn btn-default"
+																				th:href="'http://localhost/project/get/project/detail/'+${memberProject.projectId}">项目详情</a>
+																			<a class="btn btn-default"
+																				th:href="'http://localhost/project/delete/project/detail/'+${memberProject.projectId}">删除项目</a>
+																		</div>
+																	</div>
+																</td>
+															</tr>
+														</div>
+													</tbody>
 												</table>
-												<div th:each="memberProject : ${portal_member_data}"
-													style="height: 100px; width: 910px; display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; -webkit-justify-content: center; justify-content: center;">
-													<div style="width: 530px; display: inline-block;">
-														<div class="caption">
-															<h4>
-																<i title="名称" th:text="${memberProject.projectName}">1</i>
-															</h4>
-															<p>
-															<div style="float: left;">
-																<i class="glyphicon glyphicon-screenshot" title="目标金额">已完成</i>
-																<span th:text="${memberProject.percentage}+'% '">40%
-																</span>
-															</div>
-															<div style="float: right;">
-																<i title="截至日期" class="glyphicon glyphicon-calendar"></i>
-																<span th:text="${memberProject.deployDate}">2020-20-20</span>
-															</div>
-															</p>
-															<br>
-															<div class="progress" style="margin-bottom: 4px;">
-																<div class="progress-bar progress-bar-success"
-																	role="progressbar"
-																	th:aria-valuenow="${memberProject.percentage}"
-																	aria-valuenow="40" aria-valuemin="0"
-																	aria-valuemax="100"
-																	th:style="'width: '+${memberProject.percentage}+'%'"
-																	style="width: 40%"></div>
-															</div>
-														</div>
-													</div>
-													<div
-														style="vertical-align: middle; width: 120px; display: inline-block;">
-														<i style="text-align: center; display: block;"
-															title="目标金额" th:text="${memberProject.money}">1.00</i>
-													</div>
-													<div
-														style="vertical-align: middle; width: 80px; display: inline-block;">
-														<i style="text-align: center; display: block;"
-															title="关注人数" th:text="${memberProject.follower}">0</i>
-													</div>
-													<div
-														style="vertical-align: middle; width: 80px; display: inline-block;">
-														<i title="支持人数"></i> <span
-															style="text-align: center; display: block;"
-															th:text="${memberProject.supporter}">0</span>
-													</div>
-													<div style="vertical-align: middle; display: inline-block;">
-														<div class="btn-group-vertical" role="group"
-															aria-label="Vertical button group">
-															<a class="btn btn-default"
-																th:href="'http://localhost/project/get/project/detail/'+${memberProject.projectId}">项目详情</a>
-															<a class="btn btn-default"
-																th:href="'http://localhost/project/delete/project/detail/'+${memberProject.projectId}">删除项目</a>
-														</div>
-													</div>
-												</div>
 											</div>
 										</div>
 									</div>
@@ -219,7 +237,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	</div>
 </body>
 </html>
