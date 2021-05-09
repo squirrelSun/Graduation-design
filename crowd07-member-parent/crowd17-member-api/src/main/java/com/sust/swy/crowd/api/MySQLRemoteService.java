@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sust.swy.crowd.entity.po.MemberCerticficatInfoPO;
 import com.sust.swy.crowd.entity.po.MemberPO;
 import com.sust.swy.crowd.entity.vo.AddressVO;
 import com.sust.swy.crowd.entity.vo.DetailProjectVO;
@@ -77,5 +78,8 @@ public interface MySQLRemoteService {
 
 	@RequestMapping("delete/order/detail/by/order/id")
 	void deleteOrderDetailByOrderId(@RequestParam("orderId") String orderId);
+
+	@RequestMapping("save/meneber/certicficat/info")
+	void saveMeneberCerticficatInfo(@RequestBody MemberCerticficatInfoPO memberCerticficatInfoPO);
 
 }

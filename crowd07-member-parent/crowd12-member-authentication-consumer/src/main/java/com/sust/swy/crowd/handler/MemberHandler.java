@@ -20,7 +20,9 @@ import com.sust.swy.crowd.api.MySQLRemoteService;
 import com.sust.swy.crowd.api.RedisRemoteService;
 import com.sust.swy.crowd.config.ShortMessageProperties;
 import com.sust.swy.crowd.constant.CrowdConstant;
+import com.sust.swy.crowd.entity.po.MemberCerticficatInfoPO;
 import com.sust.swy.crowd.entity.po.MemberPO;
+import com.sust.swy.crowd.entity.vo.CheckVO;
 import com.sust.swy.crowd.entity.vo.MemberLoginVO;
 import com.sust.swy.crowd.entity.vo.MemberVO;
 import com.sust.swy.crowd.entity.vo.OrderProjectLauchVO;
@@ -40,11 +42,54 @@ public class MemberHandler {
 	@Autowired
 	MySQLRemoteService mySQLRemoteService;
 
+	@RequestMapping("/auth/do/member/certification")
+	public String certification(CheckVO checkVO, ModelMap modelMap, HttpSession session) {
+		String phoneNum = checkVO.getPhoneNum();
+		String formCode = checkVO.getCode();
+		String key = CrowdConstant.REDIS_CODE_PREFIX + phoneNum;
+		ResultEntity<String> resultEntity = redisRemoteService.getRedisStringValueByKeyRemote(key);
+		String result = resultEntity.getOperationResult();
+		if (ResultEntity.FAILED.equals(result)) {
+			modelMap.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE, resultEntity.getOperationMessage());
+			return "member-certification";
+		}
+		String redisCode = resultEntity.getQueryData();
+		if (redisCode == null && !CrowdConstant.TOKEN_CODE.equals(formCode)) {
+			modelMap.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE, CrowdConstant.MESSAGE_CODE_NOT_EXISTS);
+			return "member-certification";
+		}
+		if (!Objects.equals(formCode, redisCode) && !CrowdConstant.TOKEN_CODE.equals(formCode)) {
+			modelMap.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE, CrowdConstant.MESSAGE_CODE_INVALID);
+			return "member-certification";
+		}
+		if (!CrowdConstant.TOKEN_CODE.equals(formCode)) {
+			redisRemoteService.removeRedisKeyRemote(key);
+		}
+		MemberLoginVO memberLoginVO = (MemberLoginVO) session.getAttribute(CrowdConstant.ATTR_NAME_LOGIN_MEMBER);
+		MemberCerticficatInfoPO memberCerticficatInfoPO = new MemberCerticficatInfoPO();
+		Integer memberId = memberLoginVO.getId();
+		memberCerticficatInfoPO.setMemberid(memberId);
+		memberCerticficatInfoPO.setRealname(checkVO.getRealName());
+		memberCerticficatInfoPO.setCardnum(checkVO.getCardNum());
+		memberCerticficatInfoPO.setPhone(checkVO.getPhoneNum());
+		memberCerticficatInfoPO.setPhotoHand(checkVO.getPhotoWithHandPath());
+		memberCerticficatInfoPO.setPhotoOn(checkVO.getPhotoOnPath());
+		memberCerticficatInfoPO.setPhotoOff(checkVO.getPhotoOffPath());
+		mySQLRemoteService.saveMeneberCerticficatInfo(memberCerticficatInfoPO);
+		ResultEntity<MemberPO> entity = mySQLRemoteService.getMemberPOByMemberid(String.valueOf(memberId));
+		MemberPO memberPO = entity.getQueryData();
+		memberLoginVO = new MemberLoginVO(memberPO.getId(), memberPO.getUsername(), memberPO.getEmail(),
+				memberPO.getAuthstatus());
+		session.setAttribute(CrowdConstant.ATTR_NAME_LOGIN_MEMBER, memberLoginVO);
+		return "redirect:http://localhost/auth/member/to/center/page";
+	}
+
 	@RequestMapping("/member/my/crowd")
 	public String myCrowd(Model model, HttpSession session) {
 		MemberLoginVO memberLoginVO = (MemberLoginVO) session.getAttribute(CrowdConstant.ATTR_NAME_LOGIN_MEMBER);
 		Integer memberId = memberLoginVO.getId();
-		ResultEntity<List<OrderProjectLauchVO>> resultEntity = mySQLRemoteService.getOrderProjectLauchByMemberId(memberId);
+		ResultEntity<List<OrderProjectLauchVO>> resultEntity = mySQLRemoteService
+				.getOrderProjectLauchByMemberId(memberId);
 		String result = resultEntity.getOperationResult();
 		if (ResultEntity.SUCCESS.equals(result)) {
 			List<OrderProjectLauchVO> list = resultEntity.getQueryData();
@@ -52,7 +97,7 @@ public class MemberHandler {
 		}
 		return "member-crowd";
 	}
-	
+
 	@RequestMapping("/member/my/crowd/create")
 	public String myCreate(Model model, HttpSession session) {
 		MemberLoginVO memberLoginVO = (MemberLoginVO) session.getAttribute(CrowdConstant.ATTR_NAME_LOGIN_MEMBER);

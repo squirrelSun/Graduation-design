@@ -21,10 +21,10 @@
 					class="glyphicon glyphicon-ok"></i> 业务审核 <span class="badge"
 					style="float: right">2</span></span>
 				<ul style="margin-top: 10px; display: none;">
-					<li style="height: 30px;"><a><i
-							class="glyphicon glyphicon-check"></i> 实名认证审核 </a></li>
+					<li style="height: 30px;"><a href="member/to/check.html"
+						class="glyphicon glyphicon-check"><i></i>实名认证审核 </a></li>
 					<li style="height: 30px;"><a href="project/to/check.html"><i
-							class="glyphicon glyphicon-check"></i> 项目审核 </a></li>
+							class="glyphicon glyphicon-check"></i>项目审核 </a></li>
 				</ul></li>
 
 		</ul>

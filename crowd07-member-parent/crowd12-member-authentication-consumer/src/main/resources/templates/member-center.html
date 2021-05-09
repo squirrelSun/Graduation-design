@@ -90,7 +90,12 @@
 							<div class="caption" style="text-align: center;">
 								<h3>[[${session.loginMember.username}]]</h3>
 								<span class="label label-danger" style="cursor: pointer;"
-									onclick="window.location.href='http://localhost/auth/member/to/certification/page'">未实名认证</span>
+									onclick="window.location.href='http://localhost/auth/member/to/certification/page'"
+									th:if="${session.loginMember.authstatus == 0}">未实名认证 </span> <span
+									class="label label-info" style="cursor: pointer;"
+									th:if="${session.loginMember.authstatus == 1}">实名认证申请中 </span>
+								<span class="label label-success" style="cursor: pointer;"
+									th:if="${session.loginMember.authstatus == 2}">已实名认证 </span>
 							</div>
 						</div>
 					</div>
@@ -101,7 +106,7 @@
 							class="glyphicon glyphicon-chevron-right"></i></span>
 					</div>
 					<div class="list-group-item " style="cursor: pointer;"
-					onclick="window.location.href='http://localhost/member/my/crowd'">
+						onclick="window.location.href='http://localhost/member/my/crowd'">
 						<a th:href="@{/member/my/crowd}">我的众筹</a><span class="badge"><i
 							class="glyphicon glyphicon-chevron-right"></i></span>
 					</div>
@@ -130,7 +135,7 @@
 		<div class="row clearfix">
 			<div class="col-md-12 column">
 				<div id="footer">
-					<div class="copyRight">sust ? 2017-2017 swy 版权所有</div>
+					<div class="copyRight">sust ? 2017-2021 swy 版权所有</div>
 				</div>
 
 			</div>

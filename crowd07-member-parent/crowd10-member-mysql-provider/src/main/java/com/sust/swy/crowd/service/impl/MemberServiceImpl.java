@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sust.swy.crowd.entity.po.MemberCerticficatInfoPO;
 import com.sust.swy.crowd.entity.po.MemberPO;
 import com.sust.swy.crowd.entity.po.MemberPOExample;
 import com.sust.swy.crowd.entity.po.MemberPOExample.Criteria;
+import com.sust.swy.crowd.mapper.MemberCerticficatInfoPOMapper;
 import com.sust.swy.crowd.mapper.MemberPOMapper;
 import com.sust.swy.crowd.service.api.MemberService;
 
@@ -19,6 +21,9 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	private MemberPOMapper memberPoMapper;
+
+	@Autowired
+	private MemberCerticficatInfoPOMapper memberCerticficatInfoPOMapper;
 
 	@Override
 	public MemberPO getMemberPOByLoginAcct(String loginacct) {
@@ -46,6 +51,16 @@ public class MemberServiceImpl implements MemberService {
 		if (list == null || list.size() == 0)
 			return null;
 		return list.get(0);
+	}
+
+	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class, readOnly = false)
+	@Override
+	public void insertMeneberCerticficatInfo(MemberCerticficatInfoPO memberCerticficatInfoPO) {
+		memberCerticficatInfoPOMapper.insert(memberCerticficatInfoPO);
+		Integer memberid = memberCerticficatInfoPO.getMemberid();
+		MemberPO memberPO = memberPoMapper.selectByPrimaryKey(memberid);
+		memberPO.setAuthstatus(1);
+		memberPoMapper.updateByPrimaryKey(memberPO);
 	}
 
 }

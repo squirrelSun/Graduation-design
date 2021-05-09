@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sust.swy.crowd.constant.CrowdConstant;
+import com.sust.swy.crowd.entity.po.MemberCerticficatInfoPO;
 import com.sust.swy.crowd.entity.po.MemberPO;
 import com.sust.swy.crowd.service.api.MemberService;
 import com.sust.swy.crowd.util.ResultEntity;
@@ -17,6 +18,11 @@ public class MemberProviderHandler {
 
 	@Autowired
 	MemberService memberService;
+	
+	@RequestMapping("save/meneber/certicficat/info")
+	public void saveMeneberCerticficatInfo(@RequestBody MemberCerticficatInfoPO memberCerticficatInfoPO) {
+		memberService.insertMeneberCerticficatInfo(memberCerticficatInfoPO);
+	}
 
 	@RequestMapping("/get/memberpo/by/member/id")
 	public ResultEntity<MemberPO> getMemberPOByMemberid(@RequestParam("memberId") String memberId) {
