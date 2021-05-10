@@ -115,7 +115,6 @@
 													data-content="<div ><img width='400' height='300' src='${member.photoOff }'></div>">反面</a>
 												</td>
 												<td>
-
 													</button> <a
 													href="member/check/success/${member.memberId }/${member.certicficatId }/${requestScope.pageInfo.pageNum }/${param.keyword }.html"
 													class="btn btn-success btn-xs"> <i
