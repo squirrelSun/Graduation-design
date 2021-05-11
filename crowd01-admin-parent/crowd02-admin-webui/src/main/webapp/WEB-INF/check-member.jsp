@@ -11,6 +11,7 @@
 		// 初始化
 		initPagination();
 		$('[data-toggle="popover"]').popover()
+		
 	});
 	// 生成页码导航条
 	function initPagination() {
@@ -101,18 +102,18 @@
 												<td><c:if test="${0 eq member.authstatus }">未申请</c:if>
 													<c:if test="${1 eq member.authstatus }">待审核</c:if> <c:if
 														test="${2 eq member.authstatus }">成功</c:if>
-												<td><a tabindex="0" class="btn btn-lg btn-info btn-xs"
+												<td><a tabindex="0" class="btn btn-info btn-xs"
 													role="button" data-toggle="popover" data-trigger="focus"
 													data-html="true" data-placement="left"
-													data-content="<div><img width='400' height='300' src='${member.photoHand }'></div>">手持</a>
-													<a tabindex="0" class="btn btn-lg btn-info btn-xs"
-													role="button" data-toggle="popover" data-trigger="focus"
-													data-html="true" data-placement="left"
-													data-content="<div><img width='400' height='300' src='${member.photoOn }'></div>">正面</a>
-													<a tabindex="0" class="btn btn-lg btn-info btn-xs"
-													role="button" data-toggle="popover" data-trigger="focus"
-													data-html="true" data-placement="left"
-													data-content="<div ><img width='400' height='300' src='${member.photoOff }'></div>">反面</a>
+													data-content="<div><img width='856' height='540' src='${member.photoHand }'></div>">手持</a>
+													<a tabindex="0" class="btn btn-info btn-xs" role="button"
+													data-toggle="popover" data-trigger="focus" data-html="true"
+													data-placement="left"
+													data-content="<div><img width='856' height='540' src='${member.photoOn }'></div>">正面</a>
+													<a tabindex="0" class="btn btn-info btn-xs" role="button"
+													data-toggle="popover" data-trigger="focus" data-html="true"
+													data-placement="left"
+													data-content="<div><img width='856' height='540' src='${member.photoOff }'></div>">反面</a>
 												</td>
 												<td>
 													</button> <a
