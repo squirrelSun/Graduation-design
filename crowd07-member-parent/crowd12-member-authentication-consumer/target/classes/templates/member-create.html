@@ -132,8 +132,11 @@
 									$("#launchCrowdBtn")
 											.click(
 													function() {
-														if 
-														window.location.href = "http://localhost/project/agree/protocol/page/" + [[${session.loginMember.id}]];
+														if ([[${session.loginMember.authstatus}]] == 2){
+														window.location.href = "http://localhost/project/agree/protocol/page/" + [[${session.loginMember.id}]];}
+														else {
+															alert("请先进行实名认证");
+														}
 													});
 								});
 							</script>
