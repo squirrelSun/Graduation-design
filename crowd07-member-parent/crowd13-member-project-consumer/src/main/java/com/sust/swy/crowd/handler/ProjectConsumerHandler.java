@@ -43,7 +43,6 @@ public class ProjectConsumerHandler {
 		return "redirect:http://localhost/member/my/crowd/create";
 	}
 	
-
 	@RequestMapping("/agree/protocol/page/{memberId}")
 	public String toAgreeProtocolPage(@PathVariable("memberId") String memberId) {
 		ResultEntity<MemberPO> resultEntity = mySQLRemoteService.getMemberPOByMemberid(memberId);

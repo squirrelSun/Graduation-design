@@ -46,7 +46,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">
-							<i class="glyphicon glyphicon-th"></i>数据列表
+							<i class="glyphicon glyphicon-th"></i>项目审核
 						</h3>
 					</div>
 					<div class="panel-body">
