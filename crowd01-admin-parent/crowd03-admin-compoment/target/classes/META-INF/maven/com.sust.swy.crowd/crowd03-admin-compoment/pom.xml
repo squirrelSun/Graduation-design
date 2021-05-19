@@ -9,16 +9,6 @@
 	</parent>
 	<artifactId>crowd03-admin-compoment</artifactId>
 	<dependencies>
-		<dependency>
-			<groupId>com.sust.swy.crowd</groupId>
-			<artifactId>crowd04-admin-entity</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sust.swy.crowd</groupId>
-			<artifactId>crowd05-common-util</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
 
 		<!-- Spring依赖 -->
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-orm -->
@@ -139,5 +129,21 @@
 			<artifactId>spring-security-taglibs</artifactId>
 		</dependency>
 
+
+		<dependency>
+			<groupId>com.sust.swy.crowd</groupId>
+			<artifactId>crowd04-admin-entity</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sust.swy.crowd</groupId>
+			<artifactId>crowd09-member-entity</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sust.swy.crowd</groupId>
+			<artifactId>crowd05-common-util</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>

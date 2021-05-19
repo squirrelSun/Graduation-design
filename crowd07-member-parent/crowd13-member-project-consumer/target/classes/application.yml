@@ -7,7 +7,7 @@ spring:
     prefix: classpath:/templates/
     suffix: .html
   redis:
-    host: 192.168.40.128
+    host: 192.168.1.21
   session:
     store-type: redis
 eureka:

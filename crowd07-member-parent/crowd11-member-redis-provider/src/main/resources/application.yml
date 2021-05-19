@@ -4,7 +4,7 @@ spring:
   application: 
     name: sust-swy-crowd-redis
   redis:
-    host: 192.168.40.128
+    host: 192.168.1.21
     port: 6379
 eureka: 
   instance: 
