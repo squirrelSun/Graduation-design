@@ -18,7 +18,7 @@
 							class="btn btn-default btn-success dropdown-toggle"
 							data-toggle="dropdown">
 							<i class="glyphicon glyphicon-user"></i>
-							${sessionScope.member.memberName } <span class="caret"></span>
+							${sessionScope.merchant.merchantName } <span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu" role="menu">
 							<li><a><i class="glyphicon glyphicon-comment"></i> 消息</a></li>

@@ -11,4 +11,8 @@ public interface MerchantService {
 
 	void removeMerchantById(Integer merchantId);
 
+	void saveMerchant(Merchant merchant);
+
+	Merchant getMerchantByLoginAcct(String loginAcct, String usePswd);
+
 }

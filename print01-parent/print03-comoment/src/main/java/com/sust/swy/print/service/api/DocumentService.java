@@ -8,4 +8,6 @@ public interface DocumentService {
 
 	List<Document> getDocumentListByMemberId(Integer memberId);
 
+	void deleteDocumentById(Integer documentId);
+
 }

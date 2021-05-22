@@ -98,4 +98,6 @@ public interface OrderMapper {
     int updateByPrimaryKey(Order record);
 
 	List<OrderDetail> selectOrderByKeyword(@Param("keyword") String keyword);
+
+	List<OrderDetail> selectOrderDetailByMemberId(@Param("memberId") Integer memberId);
 }

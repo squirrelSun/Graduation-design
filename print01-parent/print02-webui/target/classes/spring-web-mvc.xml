@@ -40,6 +40,8 @@
 		path="/to/merchant/login/page.html" view-name="merchant-login" />
 	<mvc:view-controller
 		path="/to/merchant/main/page.html" view-name="merchant-main" />
+		<mvc:view-controller
+		path="/to/merchant/register/page.html" view-name="merchant-register" />
 	<mvc:view-controller
 		path="/to/admin/login/page.html" view-name="admin-login" />
 	<mvc:view-controller

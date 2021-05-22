@@ -151,12 +151,57 @@
 		order_amount, order_remark, update_time,
 		is_delete
 	</sql>
-	<select id="selectOrderByKeyword" resultMap="BaseResultMapDev">
+	<select id="selectOrderDetailByMemberId"
+		resultMap="BaseResultMapDev">
 		SELECT
 		t_order.`id`
 		AS order_id,
 		t_order.`member_id` as member_id,
 		t_order.`machine_id` as machine_id,
+		t_order.`document_id` as
+		document_id,
+		`order_status`,
+		`order_num`,
+		`pay_order_num`,
+		`order_amount`,
+		`order_remark`,
+		t_order.`update_time` AS
+		order_update_time,
+		t_order.`is_delete` AS
+		order_is_delete,
+		member.`member_name` AS member_name,
+		member.`is_delete` AS
+		member_is_delete,
+		machine.`machine_name` AS
+		machine_name,
+		machine.`is_delete` AS machine_is_delete,
+		document.`document_name` AS
+		document_name,
+		document.`document_status`
+		AS document_status,
+		document.`document_url` AS document_url
+		FROM
+		t_order
+		LEFT JOIN t_member
+		member
+		ON t_order.`member_id` = member.`id`
+		LEFT JOIN
+		t_machine machine
+		ON t_order.`machine_id` = machine.`id`
+		LEFT JOIN
+		t_document document
+		ON
+		t_order.`document_id` = document.id
+		WHERE
+		t_order.`member_id` = #{memberId}
+	</select>
+	<select id="selectOrderByKeyword" resultMap="BaseResultMapDev">
+		SELECT
+		t_order.`id`
+		AS order_id,
+		t_order.`member_id` as member_id,
+		t_order.`machine_id` as
+		machine_id,
 		t_order.`document_id` as document_id,
 		`order_status`,
 		`order_num`,
@@ -187,14 +232,18 @@
 		ON t_order.`document_id` = document.id
 		WHERE
 		order_num LIKE CONCAT("%", #{keyword}, "%")
-		OR pay_order_num LIKE CONCAT("%", #{keyword},
+		OR pay_order_num LIKE
+		CONCAT("%", #{keyword},
 		"%")
-		OR order_remark LIKE CONCAT("%", #{keyword}, "%")
+		OR order_remark LIKE CONCAT("%",
+		#{keyword}, "%")
 		OR member_name LIKE
 		CONCAT("%", #{keyword}, "%")
-		OR machine_name LIKE CONCAT("%", #{keyword}, "%")
 		OR
-		document_name LIKE CONCAT("%", #{keyword}, "%")
+		machine_name LIKE CONCAT("%", #{keyword}, "%")
+		OR
+		document_name LIKE
+		CONCAT("%", #{keyword}, "%")
 	</select>
 	<select id="selectByExample" resultMap="BaseResultMap"
 		parameterType="com.sust.swy.print.entity.OrderExample">

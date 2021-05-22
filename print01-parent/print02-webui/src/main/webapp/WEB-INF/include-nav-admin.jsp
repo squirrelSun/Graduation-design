@@ -7,7 +7,7 @@
 		<div class="navbar-header">
 			<div>
 				<a class="navbar-brand" style="font-size: 32px;"
-					href="http://8.129.180.50">高校文印系统</a>
+					href="http://localhost:8080/print02-webui/">校园智能文印平台</a>
 			</div>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
