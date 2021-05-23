@@ -13,10 +13,17 @@ public class PrintConstant {
 	public static final String ATTR_NAME_MEMBER = "member";
 	public static final String ATTR_NAME_ORDER = "order";
 	public static final String ATTR_NAME_DOCUMENT = "document";
+	public static final String ATTR_NAME_MACHINE = "machine";
 	public static final String ATTR_NAME_MERCHANT = "merchant";
 	public static final String ATTR_NAME_EXCEPTION = "exception";
 	public static final String ATTR_NAME_PAGE_INFO = "pageInfo";
 	public static final String ATTR_NAME_DETAIL = "detail";
+	
+	public static final String OSS_END_POINT = "http://oss-cn-huhehaote.aliyuncs.com";
+	public static final String OSS_ACCESS_KEY_ID = "LTAI4GFx3MenhcScp112pWzs";
+	public static final String OSS_ACCESS_KEY_SECRET = "34Ib1lgJkYTZl6ZjFtOvba2YKbOI09";
+	public static final String OSS_BUCKET_NAME = "sunwwyy";
+	public static final String OSS_BUCKET_DOMAIN = "http://sunwwyy.oss-cn-huhehaote.aliyuncs.com";
 
 	public static final String TOKEN_ADMIN_USERNAME = "admin";
 	public static final String TOKEN_ADMIN_PASSWORD = "admin";

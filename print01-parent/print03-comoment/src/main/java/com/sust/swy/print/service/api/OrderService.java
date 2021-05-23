@@ -3,6 +3,7 @@ package com.sust.swy.print.service.api;
 import java.util.List;
 
 import com.github.pagehelper.PageInfo;
+import com.sust.swy.print.entity.Order;
 import com.sust.swy.print.entity.OrderDetail;
 
 public interface OrderService {
@@ -14,5 +15,13 @@ public interface OrderService {
 	void creatOrderForPay(Integer documentId, Integer memberId);
 
 	void payOrderByOrderId(Integer orderId);
+
+	List<OrderDetail> getOrderListByMerchantId(Integer merchantId);
+
+	Order getOrderByOrderId(Integer orderId);
+
+	List<OrderDetail> getOrderListWithOutChack();
+
+	void chooseOrder(Integer merchantId, String machineId, String orderId, String orderPay);
 
 }

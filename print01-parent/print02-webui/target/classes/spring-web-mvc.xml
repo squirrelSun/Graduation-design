@@ -23,9 +23,16 @@
 			<props>
 				<prop key="java.lang.Exception">system-error</prop>
 				<prop
-					key="com.sust.swy.crowd.exception.AccessForbiddenException">admin-login</prop>
+					key="com.sust.swy.print.constant.exception.AccessForbiddenException">index</prop>
 			</props>
 		</property>
+	</bean>
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="maxUploadSize" value="104857600" />
+		<property name="maxInMemorySize" value="4096" />
 	</bean>
 
 	<mvc:annotation-driven />
@@ -40,8 +47,10 @@
 		path="/to/merchant/login/page.html" view-name="merchant-login" />
 	<mvc:view-controller
 		path="/to/merchant/main/page.html" view-name="merchant-main" />
-		<mvc:view-controller
+	<mvc:view-controller
 		path="/to/merchant/register/page.html" view-name="merchant-register" />
+	<mvc:view-controller
+		path="/to/merchant/check/page.html" view-name="merchant-check" />
 	<mvc:view-controller
 		path="/to/admin/login/page.html" view-name="admin-login" />
 	<mvc:view-controller

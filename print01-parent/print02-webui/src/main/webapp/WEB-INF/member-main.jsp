@@ -19,8 +19,8 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<td>邮箱</td>
-							<td>状态</td>
+							<td>用户邮箱</td>
+							<td>账号状态</td>
 							<td>注册日期</td>
 						</tr>
 					</thead>
@@ -43,7 +43,7 @@
 		<div class="row">
 			<div class="col-md-10 col-xs-offset-1 main">
 				<h3 class="page-header">文档信息</h3>
-				<input type="text" name="updocu" style="display: none;" />
+				<input type="file" name="updocu" style="display: none;" />
 				<button type="button" id="uploadBtn4"
 					class="btn btn-primary btn-lg active">上传文档</button>
 			</div>
@@ -94,7 +94,6 @@
 					</tbody>
 				</table>
 			</div>
-
 		</div>
 
 		<div class="row">
@@ -142,8 +141,9 @@
 									<td><c:if test="${o.machineIsDelete == 0}">在线</c:if> <c:if
 											test="${o.machineIsDelete == 1}">下线</c:if></td>
 									<td>${o.documentName }</td>
-									<td><c:if test="${o.documentStatus == 0}">存在</c:if> <c:if
-											test="${o.documentStatus == 1}">已删除</c:if></td>
+									<td><c:if test="${o.documentStatus == 0}">待打印</c:if> <c:if
+											test="${o.documentStatus == 1}">已打印</c:if> <c:if
+											test="${o.documentStatus == 2}">异常</c:if></td>
 									<td><a href="order/pay/${o.orderId }.html"
 										class="btn btn-success btn-xs"> <i
 											class=" glyphicon glyphicon-check"></i>
@@ -167,35 +167,40 @@
 			$("#uploadBtn4").click(function() {
 				$("[name=updocu]").click();
 			});
-			$("[name=updocu]").change(function(event) {
-				var file = event.target.files[0];
-				var url = window.url || window.webkitURL;
-				var path = url.createObjectURL(file);
-				$(this).next().next().next().next().attr("src", path).show();
-				var formData = new FormData();
-				formData.append("returnPicture", file);
-				$.ajax({
-					"url" : "[[@{/document/create/upload.json}]]",
-					"type" : "post",
-					"data" : formData,
-					"contentType" : false,
-					"processData" : false,
-					"dataType" : "json",
-					"success" : function(response) {
-						var result = response.operationResult;
-						if (result == "SUCCESS") {
-							$("[name=updocu]").val(response.queryData);
-							alert("上传成功！");
-						}
-						if (result == "FAILED") {
-							alert(response.operationMessage);
-						}
-					},
-					"error" : function(response) {
-						alert(response.status + " " + response.statusText);
-					}
-				});
-			});
+			$("[name=updocu]")
+					.change(
+							function(event) {
+								var file = event.target.files[0];
+								var url = window.url || window.webkitURL;
+								var path = url.createObjectURL(file);
+								$(this).next().next().next().next().attr("src",
+										path).show();
+								var formData = new FormData();
+								formData.append("file", file);
+								$
+										.ajax({
+											"url" : "http://localhost:8080/print02-webui/document/create/upload.json",
+											"type" : "post",
+											"data" : formData,
+											"contentType" : false,
+											"processData" : false,
+											"dataType" : "json",
+											"success" : function(response) {
+												var result = response.operationResult;
+												if (result == "SUCCESS") {
+													alert("上传成功！");
+													window.location.reload();
+												}
+												if (result == "FAILED") {
+													alert(response.operationMessage);
+												}
+											},
+											"error" : function(response) {
+												alert(response.status + " "
+														+ response.statusText);
+											}
+										});
+							});
 		});
 	</script>
 </body>

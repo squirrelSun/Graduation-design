@@ -18,26 +18,19 @@
 							class="btn btn-default btn-success dropdown-toggle"
 							data-toggle="dropdown">
 							<i class="glyphicon glyphicon-user"></i>
-							${sessionScope.merchant.merchantName } <span class="caret"></span>
+							${sessionScope.merchant.merchantName }
 						</button>
-						<ul class="dropdown-menu" role="menu">
-							<li><a><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
-							<li class="divider"></li>
-							<li><a href="member/loginout.html"><i
-									class="glyphicon glyphicon-off"></i> 退出系统</a></li>
-						</ul>
 					</div>
 				</li>
 				<li style="margin-left: 10px; padding-top: 8px;">
-					<button type="button" class="btn btn-default btn-danger">
-						<span class="glyphicon glyphicon-question-sign"></span> 帮助
-					</button>
+					<div class="btn-group">
+						<a class="btn btn-primary btn-default btn-danger"
+							href="merchant/loginout.html" role="button"><i
+							class="glyphicon glyphicon-off"></i> 退出</a>
+					</div>
 				</li>
 				<li style="margin-left: 10px; padding-top: 8px;"></li>
 			</ul>
-			<form class="navbar-form navbar-right">
-				<input type="text" class="form-control" placeholder="查询">
-			</form>
 		</div>
 	</div>
 </nav>

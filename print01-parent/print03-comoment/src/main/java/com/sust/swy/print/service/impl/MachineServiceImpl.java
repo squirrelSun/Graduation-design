@@ -7,7 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.sust.swy.print.constant.util.ResultEntity;
 import com.sust.swy.print.entity.Machine;
+import com.sust.swy.print.entity.MachineExample;
+import com.sust.swy.print.entity.MachineExample.Criteria;
 import com.sust.swy.print.entity.MachineWithMerchant;
 import com.sust.swy.print.mapper.MachineMapper;
 import com.sust.swy.print.service.api.MachineService;
@@ -45,6 +48,31 @@ public class MachineServiceImpl implements MachineService {
 			machine.setIsDelete(1);
 		}
 		machineMapper.updateByPrimaryKey(machine);
+	}
+
+	@Override
+	public List<Machine> getMachineListByMerchantId(Integer merchantId) {
+		MachineExample example = new MachineExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andMerchantIdEqualTo(merchantId);
+		List<Machine> list = machineMapper.selectByExample(example);
+		return list;
+	}
+
+	@Override
+	public ResultEntity<String> creatMachine(Integer merchantId, String machineName, String machineType) {
+		Machine machine = new Machine();
+		machine.setMachineName(machineName);
+		machine.setMachineStatus(0);
+		machine.setMachineType(Integer.valueOf(machineType));
+		machine.setMerchantId(merchantId);
+		machine.setIsDelete(0);
+		try {
+			machineMapper.insert(machine);
+			return ResultEntity.successWithoutData();
+		} catch (Exception e) {
+			return ResultEntity.failed(e.getMessage());
+		}
 	}
 
 }

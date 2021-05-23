@@ -33,13 +33,37 @@ public class DocumentServiceImpl implements DocumentService {
 		criteria.andIdEqualTo(documentId);
 		List<Document> list = documentMapper.selectByExample(example);
 		if (list == null || list.size() == 0) {
-			return ;
+			return;
 		}
 		Document document = list.get(0);
 		document.setIsDelete(1);
 		documentMapper.updateByPrimaryKey(document);
 	}
-	
-	
-	
+
+	@Override
+	public void changeDocumentByID(Integer documentId) {
+		DocumentExample example = new DocumentExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(documentId);
+		List<Document> list = documentMapper.selectByExample(example);
+		if (list == null || list.size() == 0) {
+			return;
+		}
+		Document document = list.get(0);
+		document.setDocumentStatus(1);
+		documentMapper.updateByPrimaryKey(document);
+	}
+
+	@Override
+	public void creatDocument(String name, long size, String url, Integer memberId) {
+		Document document = new Document();
+		document.setDocumentName(name);
+		document.setDocumentSize(String.valueOf(size));
+		document.setDocumentUrl(url);
+		document.setDocumentStatus(0);
+		document.setMemberId(memberId);
+		document.setIsDelete(0);
+		documentMapper.insert(document);
+	}
+
 }

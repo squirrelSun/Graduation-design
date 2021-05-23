@@ -10,4 +10,8 @@ public interface DocumentService {
 
 	void deleteDocumentById(Integer documentId);
 
+	void changeDocumentByID(Integer documentId);
+
+	void creatDocument(String name, long size, String url, Integer memberId);
+
 }

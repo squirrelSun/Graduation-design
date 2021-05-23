@@ -9,7 +9,6 @@
 <%@include file="/WEB-INF/include-head.jsp"%>
 <body>
 	<%@include file="/WEB-INF/include-nav-merchant.jsp"%>
-
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-10 col-xs-offset-1 main">
@@ -19,6 +18,7 @@
 				<table class="table">
 					<thead>
 						<tr>
+							<td>收款账户</td>
 							<td>邮箱</td>
 							<td>状态</td>
 							<td>注册日期</td>
@@ -26,26 +26,29 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>${sessionScope.member.memberEmail }</td>
-							<td><c:if test="${sessionScope.member.memberStatus == 0}">
+							<td>${sessionScope.merchant.accountNum }</td>
+							<td>${sessionScope.merchant.merchantEmail }</td>
+							<td><c:if
+									test="${sessionScope.merchant.merchantStatus == 0}">
+						待审核
+					</c:if> <c:if test="${sessionScope.merchant.merchantStatus == 1}">
 						正常
-					</c:if> <c:if test="${sessionScope.member.memberStatus == 1}">
+					</c:if> <c:if test="${sessionScope.merchant.merchantStatus == 2}">
 						异常
 					</c:if></td>
-							<td>${sessionScope.member.updateTime }</td>
+							<td>${sessionScope.merchant.updateTime }</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
 
-
 		<div class="row">
 			<div class="col-md-10 col-xs-offset-1 main">
-				<h3 class="page-header">文档信息</h3>
-				<input type="text" name="updocu" style="display: none;" />
-				<button type="button" id="uploadBtn4"
-					class="btn btn-primary btn-lg active">上传文档</button>
+				<h3 class="page-header">机器信息</h3>
+				<input type="text" name="addMach" style="display: none;" />
+				<button type="button" id="addMachBtn"
+					class="btn btn-primary btn-lg active">添加机器</button>
 			</div>
 			<div class="col-md-10 col-xs-offset-1 main">
 				<table class="table">
@@ -54,40 +57,39 @@
 							<td>#</td>
 							<td>名称</td>
 							<td>状态</td>
-							<td>大小</td>
-							<td>下载链接</td>
-							<td>上传日期</td>
+							<td>类型</td>
+							<td>入网日期</td>
 							<td>是否存在</td>
 							<td>操作</td>
 						</tr>
 					</thead>
 					<tbody>
-						<c:if test="${empty sessionScope.document }">
+						<c:if test="${empty sessionScope.machine }">
 							<tr>
 								<td colspan="10" align="center">抱歉！没有查询到您要的数据！</td>
 							</tr>
 						</c:if>
-						<c:if test="${! empty sessionScope.document }">
-							<c:forEach items="${sessionScope.document }" var="d"
+						<c:if test="${! empty sessionScope.machine }">
+							<c:forEach items="${sessionScope.machine }" var="m"
 								varStatus="myStatus">
 								<tr>
 									<td>${myStatus.count }</td>
-									<td>${d.documentName }</td>
-									<td><c:if test="${d.documentStatus == 0}">待打印</c:if> <c:if
-											test="${d.documentStatus == 1}">已打印</c:if> <c:if
-											test="${d.documentStatus == 2}">异常</c:if></td>
-									<td>${d.documentSize }</td>
-									<td><a href="${d.documentUrl }">点击下载</a></td>
-									<td>${d.updateTime }</td>
-									<td><c:if test="${d.isDelete == 0}">存在</c:if> <c:if
-											test="${d.isDelete == 1}">已删除</c:if></td>
-									<td><a href="document/print/${d.id }.html"
-										class="btn btn-success btn-xs"> <i
-											class=" glyphicon glyphicon-check"></i>
-									</a> <a href="document/remove/${d.id }.html"
-										class="btn btn-danger btn-xs"> <i
-											class=" glyphicon glyphicon-remove"></i>
-									</a></td>
+									<td>${m.machineName }</td>
+									<td><c:if test="${m.machineStatus == 0}">正常</c:if> <c:if
+											test="${m.machineStatus == 1}">使用中</c:if> <c:if
+											test="${m.machineStatus == 2}">维护中</c:if> <c:if
+											test="${m.machineStatus == 3}">异常</c:if></td>
+									<td><c:if test="${m.machineType == 0}">黑白</c:if> <c:if
+											test="${m.machineType == 1}">彩色</c:if></td>
+									<td>${m.updateTime }</td>
+									<td><c:if test="${m.isDelete == 0}">在线</c:if> <c:if
+											test="${m.isDelete == 1}">下线</c:if></td>
+									<td><a href="order/check/${m.id }.html"
+										class="btn btn-success btn-xs"><i
+											class=" glyphicon glyphicon-check"></i></a><a
+										href="machine/remove/${m.id }.html"
+										class="btn btn-danger btn-xs"><i
+											class=" glyphicon glyphicon-remove"></i></a></td>
 								</tr>
 							</c:forEach>
 						</c:if>
@@ -95,6 +97,63 @@
 				</table>
 			</div>
 
+		</div>
+
+		<div class="row">
+			<div class="col-md-10 col-xs-offset-1 main">
+				<h3 class="page-header">订单信息</h3>
+			</div>
+			<div class="col-md-10 col-xs-offset-1 main">
+				<table class="table">
+					<thead>
+						<tr>
+							<td>#</td>
+							<td>订单状态</td>
+							<td>订单号</td>
+							<td>支付宝流水号</td>
+							<td>订单金额</td>
+							<td>订单备注</td>
+							<td>创建时间</td>
+							<td>打印机</td>
+							<td>打印文档</td>
+							<td>文档状态</td>
+							<td>操作</td>
+						</tr>
+					</thead>
+					<tbody>
+						<c:if test="${empty sessionScope.order }">
+							<tr>
+								<td colspan="10" align="center">抱歉！没有查询到您要的数据！</td>
+							</tr>
+						</c:if>
+						<c:if test="${! empty sessionScope.order }">
+							<c:forEach items="${sessionScope.order }" var="o"
+								varStatus="myStatus">
+								<tr>
+									<td>${myStatus.count }</td>
+									<td><c:if test="${o.orderStatus == 0}">未支付</c:if> <c:if
+											test="${o.orderStatus == 1}">已支付</c:if> <c:if
+											test="${o.orderStatus == 2}">异常</c:if></td>
+									<td>${o.orderNum }</td>
+									<td>${o.payOrderNum }</td>
+									<td>${o.orderAmount }</td>
+									<td>${o.orderRemark }</td>
+									<td>${o.updateTime }</td>
+									<td>${o.machineName }</td>
+									<td>${o.documentName }</td>
+									<td><c:if test="${o.documentStatus == 0}">待打印</c:if> <c:if
+											test="${o.documentStatus == 1}">已打印</c:if>
+										<c:if test="${o.documentStatus == 2}">异常</c:if></td>
+									<td><a href="machine/print/${o.orderId }.html"
+										class="btn btn-success btn-xs"> <i
+											class=" glyphicon glyphicon-check"></i>
+									</a></td>
+								</tr>
+							</c:forEach>
+						</c:if>
+					</tbody>
+				</table>
+			</div>
 		</div>
 
 	</div>
@@ -105,39 +164,43 @@
 	<script src="script/echarts.js"></script>
 	<script type="text/javascript">
 		$(function() {
-			$("#uploadBtn4").click(function() {
-				$("[name=updocu]").click();
+			$("#addMachBtn").click(function() {
+				$("#addModal").modal("show");
 			});
-			$("[name=updocu]").change(function(event) {
-				var file = event.target.files[0];
-				var url = window.url || window.webkitURL;
-				var path = url.createObjectURL(file);
-				$(this).next().next().next().next().attr("src", path).show();
-				var formData = new FormData();
-				formData.append("returnPicture", file);
-				$.ajax({
-					"url" : "[[@{/document/create/upload.json}]]",
-					"type" : "post",
-					"data" : formData,
-					"contentType" : false,
-					"processData" : false,
-					"dataType" : "json",
-					"success" : function(response) {
-						var result = response.operationResult;
-						if (result == "SUCCESS") {
-							$("[name=updocu]").val(response.queryData);
-							alert("上传成功！");
-						}
-						if (result == "FAILED") {
-							alert(response.operationMessage);
-						}
-					},
-					"error" : function(response) {
-						alert(response.status + " " + response.statusText);
-					}
-				});
-			});
+			$("#saveMachineBtn").click(
+					function() {
+						var machineName = $.trim($(
+								"#addModal [name=machineName]").val());
+						var machineType = 1;
+						$.ajax({
+							"url" : "machine/save.json",
+							"type" : "post",
+							"data" : {
+								"machineName" : machineName,
+								"machineType" : machineType
+							},
+							"dataType" : "json",
+							"success" : function(response) {
+								var result = response.operationResult;
+								if (result == "SUCCESS") {
+									alert("添加成功！");
+									window.location.reload();
+								}
+								if (result == "FAILED") {
+									layer.msg("操作失败！"
+											+ response.operationMessage);
+								}
+							},
+							"error" : function(response) {
+								alert(response.status + " "
+										+ response.statusText);
+							}
+						});
+						$("#addModal").modal("hide");
+						$("#addModal [name=machineName]").val("");
+					});
 		});
 	</script>
+	<%@ include file="/WEB-INF/modal-role-add.jsp"%>
 </body>
 </html>

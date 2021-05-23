@@ -44,6 +44,7 @@ public class OrderServiceImpl implements OrderService {
 		order.setOrderStatus(0);
 		order.setOrderAmount(0.0);
 		order.setOrderRemark("");
+		order.setIsDelete(0);
 		orderMapper.insert(order);
 	}
 
@@ -54,7 +55,49 @@ public class OrderServiceImpl implements OrderService {
 		criteria.andIdEqualTo(orderId);
 		Order order = orderMapper.selectByExample(example).get(0);
 		order.setOrderStatus(1);
+		UUID uuid = UUID.randomUUID();
+		order.setPayOrderNum(uuid.toString());
 		orderMapper.updateByPrimaryKeySelective(order);
+	}
+
+	@Override
+	public List<OrderDetail> getOrderListByMerchantId(Integer merchantId) {
+		List<OrderDetail> list = orderMapper.selectOrderDetailByMerchantId(merchantId);
+		return list;
+	}
+
+	@Override
+	public Order getOrderByOrderId(Integer orderId) {
+		OrderExample example = new OrderExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(orderId);
+		List<Order> list = orderMapper.selectByExample(example);
+		if (list == null || list.size() == 0) {
+			return null;
+		}
+		return list.get(0);
+	}
+
+	@Override
+	public List<OrderDetail> getOrderListWithOutChack() {
+		List<OrderDetail> list = orderMapper.selectOrderListWithOutChack();
+		return list;
+	}
+
+	@Override
+	public void chooseOrder(Integer merchantId, String machineId, String orderId, String orderPay) {
+		OrderExample example = new OrderExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(Integer.valueOf(orderId));
+		List<Order> list = orderMapper.selectByExample(example);
+		if (list == null || list.size() == 0) {
+			return;
+		}
+		Order order = list.get(0);
+		order.setMachineId(Integer.valueOf(machineId));
+		order.setMerchantId(merchantId);
+		order.setOrderAmount(Double.valueOf(orderPay));
+		orderMapper.updateByPrimaryKey(order);
 	}
 
 }

@@ -9,7 +9,6 @@
 	</parent>
 	<artifactId>print03-compoment</artifactId>
 	<dependencies>
-
 		<!-- Spring依赖 -->
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-orm -->
 		<dependency>
