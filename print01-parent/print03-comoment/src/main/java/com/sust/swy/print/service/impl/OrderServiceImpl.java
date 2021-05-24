@@ -85,7 +85,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void chooseOrder(Integer merchantId, String machineId, String orderId, String orderPay) {
+	public void chooseOrder(Integer merchantId, String machineId, String orderId, String orderPay, String orderWrite) {
 		OrderExample example = new OrderExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andIdEqualTo(Integer.valueOf(orderId));
@@ -97,6 +97,7 @@ public class OrderServiceImpl implements OrderService {
 		order.setMachineId(Integer.valueOf(machineId));
 		order.setMerchantId(merchantId);
 		order.setOrderAmount(Double.valueOf(orderPay));
+		order.setOrderRemark(orderWrite);
 		orderMapper.updateByPrimaryKey(order);
 	}
 

@@ -72,21 +72,22 @@
 								<form
 									action="merchant/check/order/${o.orderId }/${sessionScope.machineId }.html"
 									method="post" class="form-signin" role="form">
-								<tr>
-									<td>${myStatus.count }</td>
-									<td>${o.orderNum }</td>
-									<td><input type="text" name="orderPay"
-										class="form-control" id="orderPay" placeholder="请输入订单金额"></td>
-									<td>${o.orderRemark }</td>
-									<td>${o.updateTime }</td>
-									<td>${o.documentName }</td>
-									<td>
-										<button type="submit" class="btn btn-success btn-xs">
-											<i class=" glyphicon glyphicon-check"></i>
-										</button>
-									</td>
-								</tr>
-
+									<tr>
+										<td>${myStatus.count }</td>
+										<td>${o.orderNum }</td>
+										<td><input type="text" name="orderPay"
+											class="form-control" id="orderPay" placeholder="请输入订单金额"></td>
+										<td><input type="text" name="orderWrite"
+											class="form-control" id="orderWrite" placeholder="请输入订单备注">
+										</td>
+										<td>${o.updateTime }</td>
+										<td>${o.documentName }</td>
+										<td>
+											<button type="submit" class="btn btn-success btn-xs">
+												<i class=" glyphicon glyphicon-check"></i>
+											</button>
+										</td>
+									</tr>
 							</c:forEach>
 						</c:if>
 					</tbody>

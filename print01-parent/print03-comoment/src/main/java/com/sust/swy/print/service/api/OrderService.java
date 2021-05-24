@@ -22,6 +22,6 @@ public interface OrderService {
 
 	List<OrderDetail> getOrderListWithOutChack();
 
-	void chooseOrder(Integer merchantId, String machineId, String orderId, String orderPay);
+	void chooseOrder(Integer merchantId, String machineId, String orderId, String orderPay, String orderWrite);
 
 }

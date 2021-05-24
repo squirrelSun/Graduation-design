@@ -42,10 +42,10 @@ public class MerchantHandler {
 	@RequestMapping("/merchant/check/order/{orderId}/{machineId}.html")
 	public String machineChooseOrderSuccess(@PathVariable("orderId") String orderId,
 			@PathVariable("machineId") String machineId, @RequestParam("orderPay") String orderPay,
-			HttpSession session) {
+			@RequestParam("orderWrite") String orderWrite, HttpSession session) {
 		Merchant merchant = (Merchant) session.getAttribute(PrintConstant.ATTR_NAME_MERCHANT);
 		Integer merchantId = merchant.getId();
-		orderService.chooseOrder(merchantId, machineId, orderId, orderPay);
+		orderService.chooseOrder(merchantId, machineId, orderId, orderPay, orderWrite);
 		List<Machine> machineList = machineService.getMachineListByMerchantId(merchantId);
 		List<OrderDetail> orderlist = orderService.getOrderListByMerchantId(merchantId);
 		session.setAttribute(PrintConstant.ATTR_NAME_MACHINE, machineList);
