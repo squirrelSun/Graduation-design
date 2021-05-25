@@ -76,7 +76,7 @@
 									<td><c:if test="${d.documentStatus == 0}">待打印</c:if> <c:if
 											test="${d.documentStatus == 1}">已打印</c:if> <c:if
 											test="${d.documentStatus == 2}">异常</c:if></td>
-									<td>${d.documentSize }</td>
+									<td>${d.documentSize }<b>k</b></td>
 									<td><a href="${d.documentUrl }">点击下载</a></td>
 									<td>${d.updateTime }</td>
 									<td><c:if test="${d.isDelete == 0}">存在</c:if> <c:if

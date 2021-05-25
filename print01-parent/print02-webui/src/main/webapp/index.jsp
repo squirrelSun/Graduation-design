@@ -11,8 +11,10 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<img src="img/1.png" class="img-rounded img-responsive " width="100%">
-		<br> <br> <br> <br> <br> <br>
+		<div align="center">
+			<img src="img/1.png" class="img-rounded img-responsive " width="80%">
+		</div>
+	 		<br> <br> <br> <br> <br> <br>
 		<div class="navbar-header">
 			<div>
 				<a class="navbar-brand"
