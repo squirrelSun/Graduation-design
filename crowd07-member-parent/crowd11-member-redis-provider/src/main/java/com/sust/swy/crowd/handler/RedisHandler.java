@@ -65,4 +65,17 @@ public class RedisHandler {
 			return ResultEntity.failed(e.getMessage());
 		}
 	}
+	
+	@RequestMapping("/lock/key")
+	void lockKey(@RequestParam("key")String key) {
+		System.out.println("-----尝试加锁-----");
+		System.out.println("-----锁超时，自动解锁-----");
+	}
+	
+	@RequestMapping("/unlock/key")
+	void unlockKey(@RequestParam("key")String key) {
+		System.out.println("-----尝试加锁-----");
+		System.out.println("-----释放锁资源-----");
+	}
+	
 }

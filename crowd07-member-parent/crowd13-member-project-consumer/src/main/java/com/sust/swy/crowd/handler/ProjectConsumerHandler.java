@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sust.swy.crowd.api.MySQLRemoteService;
+import com.sust.swy.crowd.api.RedisRemoteService;
 import com.sust.swy.crowd.config.OSSProperties;
 import com.sust.swy.crowd.constant.CrowdConstant;
 import com.sust.swy.crowd.entity.po.MemberPO;
@@ -36,6 +37,9 @@ public class ProjectConsumerHandler {
 
 	@Autowired
 	private MySQLRemoteService mySQLRemoteService;
+	
+	@Autowired
+	private RedisRemoteService redisRemoteService;
 	
 	@RequestMapping("/delete/project/detail/{projectId}")
 	public String deleteProjectDetail(@PathVariable("projectId") String projectId) {
@@ -165,4 +169,15 @@ public class ProjectConsumerHandler {
 		session.setAttribute(CrowdConstant.ATTR_NAME_TEMPLE_PROJECT, projectVO);
 		return "redirect:http://localhost/project/return/info/page";
 	}
+	
+	@RequestMapping("/redis/lock")
+	public void lockPayOrder(@RequestParam("key") String key) {
+		redisRemoteService.lockKey(key);
+	}
+	
+	@RequestMapping("/redis/open")
+	public void unlockPayOrder(@RequestParam("key") String key) {
+		redisRemoteService.unlockKey(key);
+	}
+	
 }

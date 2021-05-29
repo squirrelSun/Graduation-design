@@ -25,4 +25,10 @@ public interface RedisRemoteService {
 	@RequestMapping("/remove/redis/key/remote")
 	ResultEntity<String> removeRedisKeyRemote(@RequestParam("key") String key);
 
+	@RequestMapping("/lock/key")
+	void lockKey(@RequestParam("key")String key);
+	
+	@RequestMapping("/unlock/key")
+	void unlockKey(@RequestParam("key")String key);
+
 }
