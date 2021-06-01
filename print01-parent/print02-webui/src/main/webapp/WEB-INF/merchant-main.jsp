@@ -142,12 +142,18 @@
 									<td>${o.machineName }</td>
 									<td>${o.documentName }</td>
 									<td><c:if test="${o.documentStatus == 0}">待打印</c:if> <c:if
-											test="${o.documentStatus == 1}">已打印</c:if>
-										<c:if test="${o.documentStatus == 2}">异常</c:if></td>
-									<td><a href="machine/print/${o.orderId }.html"
-										class="btn btn-success btn-xs"> <i
-											class=" glyphicon glyphicon-check"></i>
-									</a></td>
+											test="${o.documentStatus == 1}">已打印</c:if> <c:if
+											test="${o.documentStatus == 2}">异常</c:if></td>
+									<td><c:if test="${empty o.payOrderNum }">
+											<button class="btn btn-success btn-xs" id="btn">
+												<i class=" glyphicon glyphicon-check"></i>
+											</button>
+										</c:if> <c:if test="${! empty o.payOrderNum  }">
+											<a href="machine/print/${o.orderId }.html"
+												class="btn btn-success btn-xs"> <i
+												class=" glyphicon glyphicon-check"></i>
+											</a>
+										</c:if></td>
 								</tr>
 							</c:forEach>
 						</c:if>
@@ -164,6 +170,9 @@
 	<script src="script/echarts.js"></script>
 	<script type="text/javascript">
 		$(function() {
+			$("#btn").click(function() {
+				alert("用户未支付订单！！！等稍后重试");
+			});
 			$("#addMachBtn").click(function() {
 				$("#addModal").modal("show");
 			});

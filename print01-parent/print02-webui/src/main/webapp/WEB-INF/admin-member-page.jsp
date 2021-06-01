@@ -87,7 +87,7 @@
 												<td>${member.memberName }</td>
 												<td>${member.memberEmail }</td>
 												<td><c:if test="${member.memberStatus == 0 }">正常</c:if>
-													<c:if test="${member.memberStatus == 1 }">有订单待支付</c:if></td>
+													<c:if test="${member.memberStatus == 1 }">异常</c:if></td>
 												<td><c:if test="${member.isDelete == 0 }">正常</c:if> <c:if
 														test="${member.isDelete == 1 }">注销</c:if></td>
 												<td>${member.updateTime }</td>

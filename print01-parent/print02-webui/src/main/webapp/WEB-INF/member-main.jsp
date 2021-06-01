@@ -144,10 +144,16 @@
 									<td><c:if test="${o.documentStatus == 0}">待打印</c:if> <c:if
 											test="${o.documentStatus == 1}">已打印</c:if> <c:if
 											test="${o.documentStatus == 2}">异常</c:if></td>
-									<td><a href="order/pay/${o.orderId }.html"
-										class="btn btn-success btn-xs"> <i
-											class=" glyphicon glyphicon-check"></i>
-									</a></td>
+									<td><c:if test="${empty o.orderAmount}">
+											<button class="btn btn-success btn-xs" id="noToPayBtn">
+												<i class=" glyphicon glyphicon-check"></i>
+											</button>
+										</c:if> <c:if test="${! empty o.orderAmount}">
+											<a href="order/pay/${o.orderId }.html"
+												class="btn btn-success btn-xs"> <i
+												class=" glyphicon glyphicon-check"></i>
+											</a>
+										</c:if></td>
 								</tr>
 							</c:forEach>
 						</c:if>
@@ -167,6 +173,9 @@
 			$("#uploadBtn4").click(function() {
 				$("[name=updocu]").click();
 			});
+			$("#noToPayBtn").click(function() {
+				alert("此订单暂未有商家接单！！！请稍等后重试");
+			});
 			$("[name=updocu]")
 					.change(
 							function(event) {
@@ -177,6 +186,8 @@
 										path).show();
 								var formData = new FormData();
 								formData.append("file", file);
+								formData.append("name", file.name);
+								console.log(file.name);
 								$
 										.ajax({
 											"url" : "http://localhost:8080/print02-webui/document/create/upload.json",

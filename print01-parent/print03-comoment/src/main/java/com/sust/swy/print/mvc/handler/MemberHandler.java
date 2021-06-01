@@ -37,14 +37,14 @@ public class MemberHandler {
 
 	@ResponseBody
 	@RequestMapping("/document/create/upload.json")
-	public ResultEntity<String> uploadFile(@RequestParam("file") MultipartFile file, HttpSession session)
-			throws IOException {
+	public ResultEntity<String> uploadFile(@RequestParam("name") String name, @RequestParam("file") MultipartFile file,
+			HttpSession session) throws IOException {
 		ResultEntity<String> uploadFileResultEntity = PrintUtil.uploadFileToOss(PrintConstant.OSS_END_POINT,
 				PrintConstant.OSS_ACCESS_KEY_ID, PrintConstant.OSS_ACCESS_KEY_SECRET, file.getInputStream(),
 				PrintConstant.OSS_BUCKET_NAME, PrintConstant.OSS_BUCKET_DOMAIN, file.getOriginalFilename());
 		Member member = (Member) session.getAttribute(PrintConstant.ATTR_NAME_MEMBER);
 		Integer memberId = member.getId();
-		documentService.creatDocument(file.getName(), file.getSize(), uploadFileResultEntity.getQueryData(), memberId);
+		documentService.creatDocument(name, file.getSize(), uploadFileResultEntity.getQueryData(), memberId);
 		List<Document> documentlist = documentService.getDocumentListByMemberId(memberId);
 		List<OrderDetail> orderlist = orderService.getOrderListByMemberId(memberId);
 		session.setAttribute(PrintConstant.ATTR_NAME_DOCUMENT, documentlist);

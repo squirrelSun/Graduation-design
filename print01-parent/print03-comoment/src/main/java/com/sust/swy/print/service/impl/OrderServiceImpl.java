@@ -12,6 +12,7 @@ import com.sust.swy.print.entity.Order;
 import com.sust.swy.print.entity.OrderDetail;
 import com.sust.swy.print.entity.OrderExample;
 import com.sust.swy.print.entity.OrderExample.Criteria;
+import com.sust.swy.print.mapper.MemberMapper;
 import com.sust.swy.print.mapper.OrderMapper;
 import com.sust.swy.print.service.api.OrderService;
 
@@ -42,8 +43,6 @@ public class OrderServiceImpl implements OrderService {
 		order.setDocumentId(documentId);
 		order.setOrderNum(uuid);
 		order.setOrderStatus(0);
-		order.setOrderAmount(0.0);
-		order.setOrderRemark("");
 		order.setIsDelete(0);
 		orderMapper.insert(order);
 	}
